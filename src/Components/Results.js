@@ -5,9 +5,11 @@ const Results = props => {
   console.log(props.results);
   return (
     <div className="results">
-      {props.results.map(result => (
-        <Result className="result" key={result.id} result={result} />
-      ))}
+      <ul>
+        {props.results.map(result => (
+          <Result className="result" key={result.id} result={result} />
+        ))}
+      </ul>
     </div>
   );
 };

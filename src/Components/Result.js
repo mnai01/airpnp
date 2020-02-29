@@ -1,10 +1,10 @@
 import React from "react";
-import "./Results.css";
+import "./Result.css";
 
 const Result = props => {
   return (
     <div className="Result-Wrapper">
-      <p>
+      <p className="result">
         {props.result.name}
         <br></br>
         {props.result.street}

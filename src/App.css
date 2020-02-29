@@ -3,8 +3,9 @@
 }
 
 .leaflet-container {
-  margin: auto;
+  display: inline-block;
+  vertical-align: top;
   overflow: hidden;
-  width: 50%;
+  width: 25%;
   height: 50vh;
 }

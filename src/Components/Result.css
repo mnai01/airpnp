@@ -1,0 +1,15 @@
+.result {
+  padding: 15px;
+  cursor: pointer;
+  width: 25%;
+}
+
+p {
+  outline: 2px solid black;
+}
+
+.Result-Wrapper {
+}
+
+.result img {
+}
