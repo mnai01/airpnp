@@ -3,8 +3,8 @@ import classes from "./Result.module.css";
 
 const Result = props => {
   return (
-    <div className="Result-Wrapper">
-      <p className="result">
+    <div className={classes.Result_Wrapper}>
+      <p className={classes.result}>
         {props.result.name}
         <br></br>
         {props.result.street}
