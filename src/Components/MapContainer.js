@@ -1,8 +1,21 @@
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import React from "react";
+import L from "leaflet";
+import Toilet from "../assets/Toiletv1.png";
+import ToiletShadow from "../assets/Toilet-Shadow.png";
 import classes from "./MapContainer.module.css";
 
 const MapContainer = props => {
+  var toiletIcon = L.icon({
+    iconUrl: Toilet,
+    shadowUrl: ToiletShadow,
+    iconSize: [50, 80], // size of the icon
+    shadowSize: [50, 75], // size of the shadow
+    iconAnchor: [22, 40], // point of the icon which will correspond to marker's location
+    shadowAnchor: [23, 40], // the same for the shadow
+    popupAnchor: [0, -30]
+  });
+
   return (
     <Map
       className={classes.leaflet_container}
@@ -16,6 +29,7 @@ const MapContainer = props => {
       />
       {props.state.results.map(result => (
         <Marker
+          icon={toiletIcon}
           key={result.id}
           position={[result.latitude, result.longitude]}
           onClick={() => {
