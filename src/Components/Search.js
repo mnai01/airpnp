@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-
 import classes from "./Search.module.css";
+
 const Search = props => {
   const publicBathroomURL =
     "https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=100&offset=0&ada=false&unisex=false";
@@ -80,12 +80,11 @@ const Search = props => {
     // bathrooms gets logged after whenever bathrooms changed.
   }, [props.state.currentLng]);
   return (
-    <div className="searchBox-wrap">
+    <div className={classes.searchBox_wrap}>
       <input
-        className="searchBox"
+        className={classes.searchBox}
         type="text"
         placeholder="Enter Zip Code"
-        className="searchBox"
         onKeyPress={search}
       ></input>
     </div>
