@@ -1,7 +1,7 @@
 .result {
   padding: 15px;
   cursor: pointer;
-  width: 25%;
+  outline: 2px solid black;
 }
 
 p {
