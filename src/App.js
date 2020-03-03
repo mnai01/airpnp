@@ -43,6 +43,19 @@ function App() {
     });
   };
 
+  const handleDrag = event => {
+    let str = event.target.getCenter();
+    console.log(str.lng);
+    setState(prevState => {
+      return {
+        ...prevState,
+        currentLng: str.lng.toFixed(2),
+        currentLat: str.lat.toFixed(2),
+        marker: null
+      };
+    });
+  };
+
   return (
     <div className="App">
       {/* Put change={handleinput} below if you want the handleinput functiion to work*/}
@@ -52,7 +65,11 @@ function App() {
         changeBath={handleBath}
         changeMarker={handleMarker}
       ></Search>{" "}
-      <Map center={[state.currentLat, state.currentLng]} zoom={12}>
+      <Map
+        center={[state.currentLat, state.currentLng]}
+        zoom={11}
+        onMoveEnd={handleDrag}
+      >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
