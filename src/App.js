@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
+import classes from "./App.module.css";
 import Search from "./Components/Search";
 import Results from "./Components/Results";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
@@ -17,7 +17,8 @@ function App() {
     results: [],
     currentLng: 0.0,
     currentLat: 0.0,
-    marker: null
+    marker: null,
+    zoom: 11
   });
 
   // const [bathrooms, setBathrooms] = useState([]);
@@ -45,19 +46,20 @@ function App() {
 
   const handleDrag = event => {
     let str = event.target.getCenter();
-    console.log(str.lng);
+    console.log(str.lng, event.target._zoom);
     setState(prevState => {
       return {
         ...prevState,
-        currentLng: str.lng.toFixed(2),
-        currentLat: str.lat.toFixed(2),
-        marker: null
+        currentLng: str.lng.toFixed(4),
+        currentLat: str.lat.toFixed(4),
+        marker: null,
+        zoom: event.target._zoom
       };
     });
   };
 
   return (
-    <div className="App">
+    <div className={classes.App}>
       {/* Put change={handleinput} below if you want the handleinput functiion to work*/}
       <Search
         state={state}
@@ -66,8 +68,9 @@ function App() {
         changeMarker={handleMarker}
       ></Search>{" "}
       <Map
+        className={classes.leaflet_container}
         center={[state.currentLat, state.currentLng]}
-        zoom={11}
+        zoom={state.zoom}
         onMoveEnd={handleDrag}
       >
         <TileLayer
