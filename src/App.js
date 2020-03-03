@@ -3,16 +3,16 @@ import classes from "./App.module.css";
 import Search from "./Components/Search";
 import Results from "./Components/Results";
 import MapContainer from "./Components/MapContainer";
-import * as bathroomData from "./Components/Bathroominfo.json";
 import Spinner from "./Components/Spinner";
+import MainMenuMap from "./Components/MainMenuMap";
 
 function App() {
   const [state, setState] = useState({
     results: [],
-    currentLng: 0.0,
-    currentLat: 0.0,
+    currentLng: -95.7129,
+    currentLat: 37.0902,
     markerPopup: null,
-    zoom: 11,
+    zoom: 5,
     loading: false
   });
 
@@ -73,6 +73,7 @@ function App() {
         dragUpdate={handleDrag}
         marker={handleMarker}
       />
+      {/* <MainMenuMap state={state} marker={handleMarker} /> */}
       {state.loading ? (
         <Spinner />
       ) : (
