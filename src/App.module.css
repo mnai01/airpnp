@@ -2,10 +2,10 @@
   text-align: center;
 }
 
-.leaflet-container {
-  display: inline-block;
+.leaflet_container {
   vertical-align: top;
   overflow: hidden;
-  width: 25%;
-  height: 50vh;
+  float: right;
+  width: 90vh;
+  height: 89vh;
 }
