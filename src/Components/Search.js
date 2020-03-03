@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 
-import "./Search.css";
+import classes from "./Search.module.css";
 const Search = props => {
   const publicBathroomURL =
     "https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=100&offset=0&ada=false&unisex=false";
