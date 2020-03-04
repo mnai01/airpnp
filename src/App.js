@@ -5,6 +5,7 @@ import Results from "./Components/Results";
 import MapContainer from "./Components/MapContainer";
 import Spinner from "./Components/Spinner";
 import MainMenuMap from "./Components/MainMenuMap";
+import GeocodeSearch from "./Components/GeocodeSearch";
 
 function App() {
   const [state, setState] = useState({
