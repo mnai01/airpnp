@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
+import Geocode from "react-geocode";
 import classes from "./Search.module.css";
 
 const publicBathroomURL =
@@ -11,21 +12,38 @@ const Search = props => {
   const fetchData = e => {
     let value = e.target.value;
     if (e.key === "Enter") {
-      props.changeMarker(null);
-      axios.get(searchLocationURL + value).then(res => {
-        let newResults = res.data.records;
-        newResults.map(results => {
-          if (value === results.fields.city || value === results.fields.zip) {
-            let lat = results.fields.latitude;
-            let lng = results.fields.longitude;
+      Geocode.setApiKey(`${process.env.REACT_APP_API_KEY}`);
+      //returns twice, idk why
+      Geocode.fromAddress(value).then(
+        response => {
+          console.log(response.results);
+          let total = response.results;
+          total.map(results => {
+            const { lat, lng } = results.geometry.location;
+            console.log(lat);
+            console.log(lng);
             props.changeCord(lng, lat);
-            // I dont know if this needs to be here? but it fixes the array-callback-return warning
-            return true;
-          }
-          // I dont know if this needs to be here? but it fixes the array-callback-return warning
-          return false;
-        });
-      });
+          });
+        },
+        error => {
+          console.error(error);
+        }
+      );
+      // props.changeMarker(null);
+      // axios.get(searchLocationURL + value).then(res => {
+      //   let newResults = res.data.records;
+      //   newResults.map(results => {
+      //     if (value === results.fields.city || value === results.fields.zip) {
+      //       let lat = results.fields.latitude;
+      //       let lng = results.fields.longitude;
+      //       props.changeCord(lng, lat);
+      //       // I dont know if this needs to be here? but it fixes the array-callback-return warning
+      //       return true;
+      //     }
+      //     // I dont know if this needs to be here? but it fixes the array-callback-return warning
+      //     return false;
+      //   });
+      // });
     }
     // if (e.key === "Enter") {
     //   console.log(lat, lng);
