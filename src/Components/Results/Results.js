@@ -1,9 +1,8 @@
 import React from "react";
-import Result from "./Result";
+import Result from "./Result/Result";
 import classes from "./Results.module.css";
 
 const Results = props => {
-  console.log(props.results);
   return (
     <div className={classes.results}>
       <ul>

@@ -16,6 +16,7 @@
     "react-geocode": "^0.2.1",
     "react-leaflet": "^1.4.0",
     "react-leaflet-markercluster": "^1.1.8",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0"
   },
   "scripts": {

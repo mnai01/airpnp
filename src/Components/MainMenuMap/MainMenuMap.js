@@ -1,6 +1,6 @@
 import React from "react";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
-import * as bathroomData from "./public_toilet.json";
+import * as bathroomData from "../../assets/public_toilet.json";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 
 import classes from "./MapContainer.module.css";
@@ -9,9 +9,9 @@ const MainMenuMap = props => {
   return (
     <Map
       className={classes.leaflet_container}
-      center={[props.state.currentLat, props.state.currentLng]}
+      center={[37.0902, -95.7129]}
       maxZoom={18}
-      zoom={props.state.zoom}
+      zoom={5}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -27,7 +27,7 @@ const MainMenuMap = props => {
             }}
           />
         ))}
-        {props.state.markerPopup && (
+        {/* {props.state.markerPopup && (
           <Popup
             position={[
               props.state.markerPopup.latitude,
@@ -42,7 +42,7 @@ const MainMenuMap = props => {
               <p>{props.state.markerPopup.extra_info}</p>
             </div>
           </Popup>
-        )}
+        )} */}
       </MarkerClusterGroup>
       );
     </Map>

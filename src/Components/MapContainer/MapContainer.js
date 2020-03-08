@@ -1,8 +1,8 @@
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import React from "react";
 import L from "leaflet";
-import Toilet from "../assets/Toiletv1.png";
-import ToiletShadow from "../assets/Toilet-Shadow.png";
+import Toilet from "../../assets/Toiletv1.png";
+import ToiletShadow from "../../assets/Toilet-Shadow.png";
 import classes from "./MapContainer.module.css";
 
 const MapContainer = props => {

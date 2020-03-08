@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./CareerPath.module.css";
-import Banner from "../assets/ExoticBathroom2.jpg";
-import Banner2 from "../assets/Thanos-Irwin.jpg";
+import Banner from "../../assets/ExoticBathroom2.jpg";
+import Banner2 from "../../assets/Thanos-Irwin.jpg";
 // https://www.lipsum.com/ place holder text Lorem Ipsum
 
 const CareerPath = () => {
