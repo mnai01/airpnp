@@ -1,0 +1,30 @@
+/*CareerPath CSS*/
+
+.Title {
+  font-size: 32px;
+  margin-top: 10px;
+  color: navy;
+}
+.AboutUsText {
+  flex-direction: row;
+  margin-top: 25px;
+  margin-left: 50px;
+  margin-right: 60%;
+  text-align: left;
+}
+
+.AboutUsText2 {
+  flex-direction: row;
+  margin-top: 25px;
+  margin-left: 60%;
+  margin-right: 50px;
+}
+.ContactUs {
+  text-align: initial;
+  padding: 40px;
+  margin-left: 50px;
+  font-size: 24px;
+}
+.Banner {
+  margin-top: 10px;
+}
