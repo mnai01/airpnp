@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Geocode from "react-geocode";
 import classes from "./Search.module.css";
@@ -9,61 +9,70 @@ const searchLocationURL =
   "https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=";
 
 const Search = props => {
-  const fetchData = e => {
-    let value = e.target.value;
-    if (e.key === "Enter") {
-      Geocode.setApiKey(`${process.env.REACT_APP_API_KEY}`);
-      //returns twice, idk why
-      Geocode.fromAddress(value).then(
-        response => {
-          console.log(response.results);
-          let total = response.results;
-          total.map(results => {
-            const { lat, lng } = results.geometry.location;
-            console.log(lat);
-            console.log(lng);
-            props.changeCord(lng, lat);
-          });
-        },
-        error => {
-          console.error(error);
-        }
-      );
-      // props.changeMarker(null);
-      // axios.get(searchLocationURL + value).then(res => {
-      //   let newResults = res.data.records;
-      //   newResults.map(results => {
-      //     if (value === results.fields.city || value === results.fields.zip) {
-      //       let lat = results.fields.latitude;
-      //       let lng = results.fields.longitude;
-      //       props.changeCord(lng, lat);
-      //       // I dont know if this needs to be here? but it fixes the array-callback-return warning
-      //       return true;
-      //     }
-      //     // I dont know if this needs to be here? but it fixes the array-callback-return warning
-      //     return false;
-      //   });
-      // });
-    }
-    // if (e.key === "Enter") {
-    //   console.log(lat, lng);
+  const [place, setState] = useState([]);
+  const [latlng, setLatLng] = useState({
+    lat: 0,
+    lng: 0
+  });
+  const [searchTF, setSearchTF] = useState(false);
+  const [selected, setSelected] = useState();
+  const GetResults = e => {
+    return (
+      <ul>
+        {searchTF &&
+          e.map(place => {
+            return (
+              <li
+                key={place.formatted_address}
+                onClick={() =>
+                  props.changeCord(
+                    place.geometry.location.lng,
+                    place.geometry.location.lat
+                  )
+                }
+              >
+                {place.formatted_address}
+              </li>
+            );
+          })}
+      </ul>
+    );
+  };
 
-    // axios
-    //   .get(publicBathroomURL + "&lat=" + lat + "&lng=" + lng)
-    //   .then(data => {
-    //     let newResults = data.data;
-    //     console.log(newResults);
-    //     setBathrooms(newResults);
-    //     console.log(
-    //       "URL CALLED: " + publicBathroomURL + "&lat=" + lat + "&lng=" + lng
-    //     );
-    //     console.log("DATA BEING CAUGHT " + newResults);
-    //     console.log("STATE BEING SHOWN " + bathrooms);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-    //}
+  const fetchData = e => {
+    console.log(e.target.value);
+    setSearchTF(true);
+    let value = e.target.value;
+    setSelected(value);
+    let Lat = 0;
+    let Lng = 0;
+    Geocode.setApiKey(`${process.env.REACT_APP_API_KEY}`);
+    //returns twice, idk why
+    Geocode.fromAddress(value).then(
+      response => {
+        console.log(response.results);
+        let total = response.results;
+        setState(total);
+        total.map(results => {
+          const { lat, lng } = results.geometry.location;
+          // MIGHT NOT NEED STATE HERE
+          // This is here because I cant get Lat and Lng to hold the values
+          // of lat, lng (in the line above) SO i need to set it to a state
+          setLatLng({ lat: lat, lng: lng });
+          console.log(latlng);
+        });
+      },
+      error => {
+        console.error(error);
+      }
+    );
+    if (e.key === "Enter") {
+      props.changeCord(latlng.lng, latlng.lat);
+      setSearchTF(false);
+    }
+    if (e.key === "Backspace") {
+      setSearchTF(false);
+    }
   };
 
   useEffect(() => {
@@ -94,8 +103,9 @@ const Search = props => {
         className={classes.searchBox}
         type="text"
         placeholder="Enter Zip Code"
-        onKeyPress={fetchData}
-      ></input>
+        onKeyUp={fetchData}
+      />
+      {GetResults(place)}
     </div>
   );
 };
