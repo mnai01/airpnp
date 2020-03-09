@@ -5,6 +5,8 @@ import HomePage from "./Components/HomePage/HomePage.";
 import About from "./Components/CareerPath/CareerPath";
 import ToolBar from "./Components/ToolBar/Toolbar";
 import CareerPath from "./Components/CareerPath/CareerPath";
+import GeoLocation from "./Components/GeoLocation/GeoLocation";
+
 const Content = () => {
   return (
     <Router>
@@ -15,10 +17,13 @@ const Content = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/About">About</Link>
             </li>
             <li>
               <Link to="/SearchPage">SearchPage</Link>
+            </li>
+            <li>
+              <Link to="/Test">Test</Link>
             </li>
           </ul>
         </nav>
@@ -26,7 +31,11 @@ const Content = () => {
         {/* A <Switch> looks through its children <Route>s and
                 renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/about">
+          <Route path="/Test">
+            <GeoLocation />
+            <SearchPage />
+          </Route>
+          <Route path="/About">
             <CareerPath />
           </Route>
           <Route path="/SearchPage">
