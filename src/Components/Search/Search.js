@@ -18,24 +18,26 @@ const Search = props => {
   const [selected, setSelected] = useState();
   const GetResults = e => {
     return (
-      <ul>
-        {searchTF &&
-          e.map(place => {
-            return (
-              <li
-                key={place.formatted_address}
-                onClick={() =>
-                  props.changeCord(
-                    place.geometry.location.lng,
-                    place.geometry.location.lat
-                  )
-                }
-              >
-                {place.formatted_address}
-              </li>
-            );
-          })}
-      </ul>
+      <div className={classes.Dropdown}>
+        <ul>
+          {searchTF &&
+            e.map(place => {
+              return (
+                <li
+                  key={place.formatted_address}
+                  onClick={() =>
+                    props.changeCord(
+                      place.geometry.location.lng,
+                      place.geometry.location.lat
+                    )
+                  }
+                >
+                  {place.formatted_address}
+                </li>
+              );
+            })}
+        </ul>
+      </div>
     );
   };
 

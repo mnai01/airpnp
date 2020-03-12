@@ -68,16 +68,23 @@ const SearchPage = () => {
         changeMarker={handleMarker}
         changeLoad={handleLoad}
       ></Search>
-      <MapContainer
-        state={state}
-        dragUpdate={handleDrag}
-        marker={handleMarker}
-      />
-      {state.loading ? (
-        <Spinner />
-      ) : (
-        <Results results={state.results}></Results>
-      )}
+      <div className={classes.container}>
+        <div className={classes.spacer}></div>
+        {state.loading ? (
+          <Spinner className={classes.Spinner} />
+        ) : (
+          <Results
+            className={classes.ResultsWrapper}
+            results={state.results}
+          ></Results>
+        )}
+        <MapContainer
+          className={classes.MapContainer}
+          state={state}
+          dragUpdate={handleDrag}
+          marker={handleMarker}
+        />
+      </div>
     </div>
   );
 };
