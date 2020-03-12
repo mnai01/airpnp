@@ -1,7 +1,7 @@
 .leaflet_container {
   vertical-align: top;
   overflow: hidden;
-  float: right;
-  width: 90vh;
-  height: 89vh;
+  width: 100%;
+  height: 100vh;
+  z-index: 100;
 }

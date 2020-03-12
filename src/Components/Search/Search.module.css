@@ -1,6 +1,6 @@
 .searchBox_wrap {
   padding: 15px;
-  width: 96%;
+  width: 100%;
 }
 
 .searchBox {
@@ -20,4 +20,22 @@
   font-weight: 300;
 
   transition: 0.4s ease-out;
+}
+
+.Dropdown {
+  width: 100%;
+  background: white;
+  position: relative;
+  z-index: 125;
+}
+
+.Dropdown ul {
+  margin: 0;
+  list-style: none;
+  padding-left: 0;
+  background-color: silver;
+}
+
+.Dropdown li {
+  padding: 6px;
 }

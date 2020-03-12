@@ -1,7 +1,22 @@
-.leaflet_container {
-  vertical-align: top;
-  overflow: hidden;
-  float: right;
-  width: 90vh;
-  height: 89vh;
+.MapContainer {
+  display: flex;
+}
+.spacer {
+  flex: 1;
+}
+
+.ResultsWrapper {
+  display: flex;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column-reverse;
+  }
 }
