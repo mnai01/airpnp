@@ -27,8 +27,8 @@ const Search = props => {
                   key={place.formatted_address}
                   onClick={() =>
                     props.changeCord(
-                      place.geometry.location.lng,
-                      place.geometry.location.lat
+                      place.geometry.location.lat,
+                      place.geometry.location.lng
                     )
                   }
                 >
@@ -69,7 +69,7 @@ const Search = props => {
       }
     );
     if (e.key === "Enter") {
-      props.changeCord(latlng.lng, latlng.lat);
+      props.changeCord(latlng.lat, latlng.lng);
       setSearchTF(false);
     }
     if (e.key === "Backspace") {
