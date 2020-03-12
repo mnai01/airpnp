@@ -4,6 +4,8 @@ import SearchPage from "./Components/SearchPage/SearchPage";
 import HomePage from "./Components/HomePage/HomePage.";
 import About from "./Components/CareerPath/CareerPath";
 import ToolBar from "./Components/ToolBar/Toolbar";
+import SideDrawer from "./Components/SideDrawer/SideDrawer";
+import Backdrop from "./Components/Backdrop/Backdrop";
 import CareerPath from "./Components/CareerPath/CareerPath";
 import GeoLocation from "./Components/GeoLocation/GeoLocation";
 
@@ -32,7 +34,9 @@ const Content = () => {
                 renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/Test">
-            <GeoLocation />
+            <ToolBar />
+            <SideDrawer />
+            <Backdrop />
             <SearchPage />
           </Route>
           <Route path="/About">
