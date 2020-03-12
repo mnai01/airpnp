@@ -4,6 +4,8 @@ import Search from "../Search/Search";
 import Results from "../Results//Results";
 import MapContainer from "../MapContainer/MapContainer";
 import Spinner from "../Spinner/Spinner";
+import PlacesAutocomplete from "../PlacesAutocomplete/PlacesAutocomplete";
+
 import classes from "./SearchPage.module.css";
 
 // const [bathrooms, setBathrooms] = useState([]);
@@ -14,8 +16,8 @@ import classes from "./SearchPage.module.css";
 const SearchPage = () => {
   const [state, setState] = useState({
     results: [],
-    currentLng: -95.7129,
     currentLat: 37.0902,
+    currentLng: -95.7129,
     markerPopup: null,
     zoom: 5,
     loading: false
@@ -27,9 +29,9 @@ const SearchPage = () => {
     });
   };
 
-  const handleCord = (lng, lat) => {
+  const handleCord = (lat, lng) => {
     setState(prevState => {
-      return { ...prevState, currentLng: lng, currentLat: lat };
+      return { ...prevState, currentLat: lat, currentLng: lng };
     });
   };
 
@@ -61,30 +63,22 @@ const SearchPage = () => {
 
   return (
     <div className={classes.App}>
-      <Search
+      <PlacesAutocomplete
+        changeBath={handleBath}
+        changeLoad={handleLoad}
         state={state}
         changeCord={handleCord}
-        changeBath={handleBath}
-        changeMarker={handleMarker}
-        changeLoad={handleLoad}
-      ></Search>
-      <div className={classes.container}>
-        <div className={classes.spacer}></div>
-        {state.loading ? (
-          <Spinner className={classes.Spinner} />
-        ) : (
-          <Results
-            className={classes.ResultsWrapper}
-            results={state.results}
-          ></Results>
-        )}
-        <MapContainer
-          className={classes.MapContainer}
-          state={state}
-          dragUpdate={handleDrag}
-          marker={handleMarker}
-        />
-      </div>
+      ></PlacesAutocomplete>
+      <MapContainer
+        state={state}
+        dragUpdate={handleDrag}
+        marker={handleMarker}
+      />
+      {state.loading ? (
+        <Spinner />
+      ) : (
+        <Results results={state.results}></Results>
+      )}
     </div>
   );
 };
