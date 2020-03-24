@@ -13,11 +13,11 @@ import classes from "./SearchPage.module.css";
 // const [lng, setLng] = useState(0.0);
 // const [lat, setLat] = useState(0.0);
 
-const SearchPage = () => {
+const SearchPage = props => {
   const [state, setState] = useState({
     results: [],
-    currentLat: 37.0902,
-    currentLng: -95.7129,
+    currentLat: props.top1.lat,
+    currentLng: props.top1.lng,
     markerPopup: null,
     zoom: 5,
     loading: false

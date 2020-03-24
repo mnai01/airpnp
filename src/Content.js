@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import SearchPage from "./Components/SearchPage/SearchPage";
 import HomePage from "./Components/HomePage/HomePage.";
@@ -8,11 +8,17 @@ import SideDrawer from "./Components/SideDrawer/SideDrawer";
 import Backdrop from "./Components/Backdrop/Backdrop";
 import CareerPath from "./Components/CareerPath/CareerPath";
 import GeoLocation from "./Components/GeoLocation/GeoLocation";
+import Aux from "./hoc/auxHOC/auxHOC";
 
 const Content = () => {
+  const [top1, setTop1] = useState({
+    lat: 39.8283,
+    lng: -98.5795
+  });
+
   return (
-    <Router>
-      <div>
+    <Aux>
+      <Router>
         <nav>
           <ul>
             <li>
@@ -37,20 +43,20 @@ const Content = () => {
             <ToolBar />
             <SideDrawer />
             <Backdrop />
-            <SearchPage />
+            <SearchPage top1={top1} />
           </Route>
           <Route path="/About">
             <CareerPath />
           </Route>
           <Route path="/SearchPage">
-            <SearchPage />
+            <SearchPage top1={top1} />
           </Route>
           <Route path="/">
             <HomePage />
           </Route>
         </Switch>
-      </div>
-    </Router>
+      </Router>
+    </Aux>
   );
 };
 
