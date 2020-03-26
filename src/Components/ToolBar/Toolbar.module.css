@@ -1,7 +1,7 @@
 .toolbar {
-  position: fixed;
+  position: sticky;
   width: 100%;
-  background-color: darksalmon;
+  background-color: wheat;
   height: 56px;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .toolbar_navigation_items a {
-  color: white;
+  color: black;
   text-decoration: none;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .toolbar_navigation_items li {
-  padding: 0 0.05rem;
+  padding: 0 1rem;
 }
 
 .toolbar_logo a {
@@ -44,5 +44,25 @@
 
 .toolbar_navigation_items a:hover,
 .toolbar_navigation_items a:active {
-  color: #fa923f;
+  text-decoration: underline;
+}
+
+.underline {
+  padding-bottom: 2px;
+  border-bottom: grey 1px solid;
+}
+
+@media (min-width: 768px) {
+  .toolbar_toggleButton {
+    display: none;
+  }
+  .toolbar_logo {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .toolbar_navigation_items {
+    display: none;
+  }
 }

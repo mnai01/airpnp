@@ -1,15 +1,25 @@
 import React from "react";
-import classes from "./SideDrawer.module.css";
+import "./SideDrawer.css";
 
-const SideDrawer = () => {
+const SideDrawer = props => {
+  let drawerClasses = ["SideDrawer"];
+  if (props.show) {
+    drawerClasses = ["SideDrawer open"];
+  }
   return (
-    <nav className={classes.SideDrawer}>
+    <nav className={drawerClasses}>
       <ul>
         <li>
-          <a href="/">test</a>
+          <a href="/">Home</a>
         </li>
         <li>
-          <a href="/">test1</a>
+          <a href="/About">About</a>
+        </li>
+        <li>
+          <a href="/SearchPage">SearchPage</a>
+        </li>
+        <li>
+          <a href="/Test">Test</a>
         </li>
       </ul>
     </nav>

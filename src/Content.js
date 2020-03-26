@@ -11,50 +11,31 @@ import GeoLocation from "./Components/GeoLocation/GeoLocation";
 import Aux from "./hoc/auxHOC/auxHOC";
 
 const Content = () => {
-  const [top1, setTop1] = useState({
-    lat: 39.8283,
-    lng: -98.5795
-  });
+  const [sideDraw, setsideDraw] = useState(false);
 
+  const drawerToggleClickHandler = () => {
+    setsideDraw(prevState => {
+      return { sideDraw: !prevState.sideDraw };
+    });
+  };
+
+  const backdropClickHandler = () => {
+    setsideDraw(false);
+  };
+
+  let backdrop;
+  if (sideDraw) {
+    backdrop = <Backdrop click={backdropClickHandler} />;
+  }
   return (
     <Aux>
       <Router>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/About">About</Link>
-            </li>
-            <li>
-              <Link to="/SearchPage">SearchPage</Link>
-            </li>
-            <li>
-              <Link to="/Test">Test</Link>
-            </li>
-          </ul>
-        </nav>
-
+        <ToolBar drawerClickHandler={drawerToggleClickHandler} />
+        <SideDrawer show={sideDraw} />
+        {backdrop}
         {/* A <Switch> looks through its children <Route>s and
                 renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/Test">
-            <ToolBar />
-            <SideDrawer />
-            <Backdrop />
-            <SearchPage top1={top1} />
-          </Route>
-          <Route path="/About">
-            <CareerPath />
-          </Route>
-          <Route path="/SearchPage">
-            <SearchPage top1={top1} />
-          </Route>
-          <Route path="/">
-            <HomePage />
-          </Route>
-        </Switch>
+        {/* Did not do 41:11 UI nav video */}
       </Router>
     </Aux>
   );

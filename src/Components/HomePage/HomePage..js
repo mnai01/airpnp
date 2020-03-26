@@ -5,6 +5,9 @@ import TileOverview from "../TileOverview/TileOverview";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import SearchPage from "../SearchPage/SearchPage";
 
+import NewYork from "../../assets/NewYork.jpg";
+import classes from "./HomePage.module.css";
+
 const HomePage = props => {
   const [top1, setTop1] = useState({
     lat: 40.7128,
@@ -19,17 +22,34 @@ const HomePage = props => {
     lng: -87.6298
   });
   return (
-    <div>
+    <Switch>
       {/* <TileOverview /> */}
-      <div>
-        <Link to="/New_York">New_York</Link>
-        <br></br>
-        <Link to="/Los_Angeles">Los_Angeles</Link>
-        <br></br>
-        <Link to="/Chicago">Chicago</Link>
-        <br></br>
-      </div>
-      {/* <MainMenuMap /> */}
+      <Route path="/" exact>
+        <div className={classes.HomePageItems}>
+          <Link to="/New_York">
+            <div className={classes.HomePageItem}>
+              <img src={NewYork}></img>
+              <h3>New York</h3>
+            </div>
+          </Link>
+          <br></br>
+          <Link to="/Los_Angeles">
+            <div className={classes.HomePageItem}>
+              <img src={NewYork}></img>
+              <h3>Los_Angeles</h3>
+            </div>
+          </Link>
+          <br></br>
+          <Link to="/Chicago">
+            <div className={classes.HomePageItem}>
+              <img src={NewYork}></img>
+              <h3>Chicago</h3>
+            </div>
+          </Link>
+          <br></br>
+        </div>
+      </Route>
+
       <Route path="/New_York">
         <SearchPage top1={top1} />
       </Route>
@@ -41,7 +61,7 @@ const HomePage = props => {
       <Route path="/Chicago">
         <SearchPage top1={top3} />
       </Route>
-    </div>
+    </Switch>
   );
 };
 
