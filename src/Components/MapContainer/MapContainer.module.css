@@ -1,7 +1,15 @@
 .leaflet_container {
   vertical-align: top;
   overflow: hidden;
-  width: 100%;
+  width: 50%;
   height: 100vh;
   z-index: 100;
+}
+
+@media (max-width: 768px) {
+  .leaflet_container {
+    margin: auto;
+    width: 90%;
+    height: 80vh;
+  }
 }

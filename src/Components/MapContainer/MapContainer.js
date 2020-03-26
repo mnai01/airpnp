@@ -49,6 +49,10 @@ const MapContainer = props => {
         >
           <div>
             <h2>{props.state.markerPopup.name}</h2>
+            <p>
+              {props.state.markerPopup.street},{props.state.markerPopup.city},
+              {props.state.markerPopup.state}
+            </p>
             <p>{props.state.markerPopup.comment}</p>
           </div>
         </Popup>
