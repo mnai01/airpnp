@@ -5,6 +5,7 @@ import Results from "../Results//Results";
 import MapContainer from "../MapContainer/MapContainer";
 import Spinner from "../Spinner/Spinner";
 import PlacesAutocomplete from "../PlacesAutocomplete/PlacesAutocomplete";
+import Aux from "../../hoc/auxHOC/auxHOC";
 
 import classes from "./SearchPage.module.css";
 
@@ -15,6 +16,7 @@ import classes from "./SearchPage.module.css";
 
 const SearchPage = props => {
   const [state, setState] = useState({
+    privateResults: [],
     results: [],
     currentLat: props.top1.lat,
     currentLng: props.top1.lng,
@@ -41,6 +43,12 @@ const SearchPage = props => {
     });
   };
 
+  const handlePrivBath = bathrooms => {
+    setState(prevState => {
+      return { ...prevState, privateResults: bathrooms };
+    });
+  };
+
   const handleMarker = NnotN => {
     setState(prevState => {
       return { ...prevState, markerPopup: NnotN };
@@ -62,24 +70,32 @@ const SearchPage = props => {
   };
 
   return (
-    <div className={classes.App}>
-      <PlacesAutocomplete
-        changeBath={handleBath}
-        changeLoad={handleLoad}
-        state={state}
-        changeCord={handleCord}
-      ></PlacesAutocomplete>
-      <MapContainer
-        state={state}
-        dragUpdate={handleDrag}
-        marker={handleMarker}
-      />
-      {state.loading ? (
-        <Spinner />
-      ) : (
-        <Results results={state.results}></Results>
-      )}
-    </div>
+    <Aux>
+      <div className={classes.container}>
+        <div>
+          <PlacesAutocomplete
+            changePrivBath={handlePrivBath}
+            changeBath={handleBath}
+            changeLoad={handleLoad}
+            state={state}
+            changeCord={handleCord}
+          ></PlacesAutocomplete>
+          <div className={classes.ResultsWrapper}>
+            {state.loading ? (
+              <Spinner />
+            ) : (
+              <Results results={state.results}></Results>
+            )}
+          </div>
+        </div>
+        <MapContainer
+          className={classes.MapContainer}
+          state={state}
+          dragUpdate={handleDrag}
+          marker={handleMarker}
+        />
+      </div>
+    </Aux>
   );
 };
 
