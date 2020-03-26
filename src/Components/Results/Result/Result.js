@@ -1,19 +1,18 @@
 import React from "react";
 import classes from "./Result.module.css";
+import NewYork from "../../../assets/Public.png";
 
 const Result = props => {
   return (
     <div className={classes.Result_Wrapper}>
-      <p className={classes.result}>
-        {props.result.name}
-        <br></br>
-        {props.result.street}
-        <br></br>
-        {props.result.city}
-        <br></br>
-        {props.result.state}
-        <br></br>
-      </p>
+      <img src={NewYork}></img>
+      <div className={classes.result}>
+        <h3> {props.result.name}</h3>
+        <p>
+          {props.result.street},{props.result.city},{props.result.state}
+        </p>
+        <p className={classes.comment}>{props.result.comment}</p>
+      </div>
     </div>
   );
 };
