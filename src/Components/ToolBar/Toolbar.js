@@ -22,7 +22,7 @@ const Toolbar = props => {
               <DrawToggleButton click={props.drawerClickHandler} />
             </div>
             <div className={classes.toolbar_logo}>
-              <a href="/">The Logo</a>
+              <a href="/">AirPnP</a>
             </div>
             <div className={classes.spacer} />
             <div className={classes.toolbar_navigation_items}>
