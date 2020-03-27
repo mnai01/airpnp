@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import MainMenuMap from "../MainMenuMap/MainMenuMap";
 import PlacesAutocomplete from "../PlacesAutocomplete/PlacesAutocomplete";
-import TileOverview from "../TileOverview/TileOverview";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import SearchPage from "../SearchPage/SearchPage";
 
