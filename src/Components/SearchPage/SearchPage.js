@@ -71,22 +71,20 @@ const SearchPage = props => {
 
   return (
     <Aux>
+      <PlacesAutocomplete
+        changePrivBath={handlePrivBath}
+        changeBath={handleBath}
+        changeLoad={handleLoad}
+        state={state}
+        changeCord={handleCord}
+      ></PlacesAutocomplete>
       <div className={classes.container}>
-        <div>
-          <PlacesAutocomplete
-            changePrivBath={handlePrivBath}
-            changeBath={handleBath}
-            changeLoad={handleLoad}
-            state={state}
-            changeCord={handleCord}
-          ></PlacesAutocomplete>
-          <div className={classes.ResultsWrapper}>
-            {state.loading ? (
-              <Spinner />
-            ) : (
-              <Results results={state.results}></Results>
-            )}
-          </div>
+        <div className={classes.ResultsWrapper}>
+          {state.loading ? (
+            <Spinner />
+          ) : (
+            <Results results={state.results}></Results>
+          )}
         </div>
         <MapContainer
           className={classes.MapContainer}
