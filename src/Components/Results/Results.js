@@ -7,7 +7,12 @@ const Results = props => {
     <div className={classes.results}>
       <ul>
         {props.results.map(result => (
-          <Result className="result" key={result.id} result={result} />
+          <Result
+            className="result"
+            key={result.id}
+            result={result}
+            click={() => props.click(result.id)}
+          />
         ))}
       </ul>
     </div>

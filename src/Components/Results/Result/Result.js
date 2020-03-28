@@ -1,11 +1,11 @@
 import React from "react";
 import classes from "./Result.module.css";
-import NewYork from "../../../assets/Public.png";
+import Public from "../../../assets/Public.png";
 
 const Result = props => {
   return (
-    <div className={classes.Result_Wrapper}>
-      <img src={NewYork}></img>
+    <div className={classes.Result_Wrapper} onClick={props.click}>
+      <img src={Public}></img>
       <div className={classes.result}>
         <h3> {props.result.name}</h3>
         <p>

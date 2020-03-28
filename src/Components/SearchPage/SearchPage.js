@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-
 import Search from "../Search/Search";
 import Results from "../Results//Results";
 import MapContainer from "../MapContainer/MapContainer";
 import Spinner from "../Spinner/Spinner";
 import PlacesAutocomplete from "../PlacesAutocomplete/PlacesAutocomplete";
-import Aux from "../../hoc/auxHOC/auxHOC";
+import Modal from "../Modal/Modal";
 
+import Aux from "../../hoc/auxHOC/auxHOC";
 import classes from "./SearchPage.module.css";
 
 // const [bathrooms, setBathrooms] = useState([]);
@@ -18,12 +18,14 @@ const SearchPage = props => {
   const [state, setState] = useState({
     privateResults: [],
     results: [],
-    currentLat: props.top1.lat,
-    currentLng: props.top1.lng,
+    currentLat: props.cords.lat,
+    currentLng: props.cords.lng,
     markerPopup: null,
-    zoom: 5,
+    zoom: props.zoom,
     loading: false
   });
+  const [currentSelected, setSelected] = useState([]);
+  const [ModalChange, setModal] = useState(false);
 
   const handleLoad = TorF => {
     setState(prevState => {
@@ -69,8 +71,31 @@ const SearchPage = props => {
     });
   };
 
+  const handleResultClicked = key => {
+    setModal(!ModalChange);
+    const personIndex = state.results.findIndex(i => {
+      return i.id === key;
+    });
+    setSelected(state.results[personIndex]);
+    console.log(state.results[personIndex]);
+  };
+
+  const handleResultClickedFalse = key => {
+    setModal(false);
+  };
+
   return (
     <Aux>
+      <Modal changeModalFalse={handleResultClickedFalse} show={ModalChange}>
+        <h3>{currentSelected.name}</h3>
+        <p>
+          {currentSelected.street},{currentSelected.city},
+          {currentSelected.state}
+        </p>
+        <p>{currentSelected.comment}</p>
+        <p>Upvotes: {currentSelected.upvote}</p>
+        <p>Downvotes: {currentSelected.downvote}</p>
+      </Modal>
       <PlacesAutocomplete
         changePrivBath={handlePrivBath}
         changeBath={handleBath}
@@ -83,7 +108,10 @@ const SearchPage = props => {
           {state.loading ? (
             <Spinner />
           ) : (
-            <Results results={state.results}></Results>
+            <Results
+              results={state.results}
+              click={handleResultClicked}
+            ></Results>
           )}
         </div>
         <MapContainer
