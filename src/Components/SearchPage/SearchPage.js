@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Search from "../Search/Search";
-import Results from "../Results//Results";
+import Results from "../Results/Results";
+import PrivateResults from "../PrivateResults/PrivateResults";
+
 import MapContainer from "../MapContainer/MapContainer";
 import Spinner from "../Spinner/Spinner";
 import PlacesAutocomplete from "../PlacesAutocomplete/PlacesAutocomplete";
@@ -73,11 +75,19 @@ const SearchPage = props => {
 
   const handleResultClicked = key => {
     setModal(!ModalChange);
-    const personIndex = state.results.findIndex(i => {
+    const bathroomIndex = state.results.findIndex(i => {
       return i.id === key;
     });
-    setSelected(state.results[personIndex]);
-    console.log(state.results[personIndex]);
+    setSelected(state.results[bathroomIndex]);
+    console.log(state.results[bathroomIndex]);
+  };
+
+  const handlePrivateResultClicked = key => {
+    const bathroomIndex = state.privateResults.findIndex(i => {
+      return i.id === key;
+    });
+    props.handle(state.privateResults[bathroomIndex]);
+    console.log(state.privateResults[bathroomIndex]);
   };
 
   const handleResultClickedFalse = key => {
@@ -108,10 +118,16 @@ const SearchPage = props => {
           {state.loading ? (
             <Spinner />
           ) : (
-            <Results
-              results={state.results}
-              click={handleResultClicked}
-            ></Results>
+            <div className={classes.results}>
+              <PrivateResults
+                privResults={state.privateResults}
+                click={handlePrivateResultClicked}
+              />
+              <Results
+                results={state.results}
+                click={handleResultClicked}
+              ></Results>
+            </div>
           )}
         </div>
         <MapContainer

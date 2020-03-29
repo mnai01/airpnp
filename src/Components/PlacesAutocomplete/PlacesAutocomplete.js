@@ -47,6 +47,9 @@ const Autocomplete = props => {
         props.state.currentLng
     );
 
+    console.table(
+      privateBathroomURL + props.state.currentLat + "/" + props.state.currentLng
+    );
     props.changeLoad(true);
     axios
       .get(

@@ -27,6 +27,14 @@ const MapContainer = props => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
+      {props.state.privateResults.map(result => (
+        <Marker
+          // icon={toiletIcon}
+          key={result.id}
+          position={[result.address_id.latitude, result.address_id.longitude]}
+        />
+      ))}
+
       {props.state.results.map(result => (
         <Marker
           icon={toiletIcon}

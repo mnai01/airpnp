@@ -10,9 +10,13 @@ import {
   Redirect
 } from "react-router-dom";
 import SearchPage from "../SearchPage/SearchPage";
+import Result from "../Results/Result/Result";
 import HomePage from "../HomePage/HomePage.";
 import CareerPath from "../CareerPath/CareerPath";
 import ErrorPage from "../ErroPage/ErroPage";
+import PrivateResults from "../PrivateResults/PrivateResults";
+import PrivateResultsPage from "../PrivateResultPage/PrivateResultPage";
+
 import Aux from "../../hoc/auxHOC/auxHOC";
 
 const Toolbar = props => {
@@ -48,6 +52,13 @@ const Toolbar = props => {
     lat: 25.7617,
     lng: -80.1918
   });
+
+  const [currentSelected, setSelected] = useState([]);
+
+  const handleResultclicked = bathroom => {
+    setSelected([bathroom]);
+  };
+
   return (
     <Aux>
       <Router>
@@ -84,40 +95,56 @@ const Toolbar = props => {
           <Route exact path="/About" component={CareerPath} />
 
           <Route exact path="/SearchPage">
-            <SearchPage cords={top1} zoom={5} />
+            <SearchPage cords={top1} zoom={5} handle={handleResultclicked} />
           </Route>
 
           <Route exact path="/Test">
-            <SearchPage cords={top1} zoom={5} />
+            <SearchPage cords={top1} zoom={5} handle={handleResultclicked} />
           </Route>
 
           <Route exact path="/New_York">
-            <SearchPage cords={NYC} zoom={13} />
+            <SearchPage cords={NYC} zoom={13} handle={handleResultclicked} />
           </Route>
 
           <Route path="/New_Orleans">
-            <SearchPage cords={NewOrleans} zoom={11} />
+            <SearchPage
+              cords={NewOrleans}
+              zoom={11}
+              handle={handleResultclicked}
+            />
           </Route>
 
           <Route path="/Los_Angeles">
-            <SearchPage cords={LA} zoom={11} />
+            <SearchPage cords={LA} zoom={11} handle={handleResultclicked} />
           </Route>
 
           <Route path="/Washington_DC">
-            <SearchPage cords={DC} zoom={11} />
+            <SearchPage cords={DC} zoom={11} handle={handleResultclicked} />
           </Route>
 
           <Route path="/Las_Vegas">
-            <SearchPage cords={LasVegas} zoom={11} />
+            <SearchPage
+              cords={LasVegas}
+              zoom={11}
+              handle={handleResultclicked}
+            />
           </Route>
 
           <Route path="/San_Francisco">
-            <SearchPage cords={SF} zoom={11} />
+            <SearchPage cords={SF} zoom={11} handle={handleResultclicked} />
           </Route>
 
           <Route path="/Miami">
-            <SearchPage cords={MI} zoom={11} />
+            <SearchPage cords={MI} zoom={11} handle={handleResultclicked} />
           </Route>
+
+          <Router path="/:id">
+            {console.log(currentSelected)}
+            <PrivateResultsPage privResults={currentSelected} />
+          </Router>
+
+          {/* section 11, 205
+              each page for each result */}
 
           <Redirect to="/404" />
         </Switch>
