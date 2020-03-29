@@ -1,8 +1,9 @@
 .toolbar {
   position: sticky;
   width: 100%;
-  background-color: wheat;
+  background-color: rgb(250, 250, 250);
   height: 56px;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.15);
 }
 
 .toolbar_navigation {
@@ -37,7 +38,7 @@
 }
 
 .toolbar_logo a {
-  color: white;
+  color: rgb(0, 0, 0);
   text-decoration: none;
   font-size: 1.5rem;
 }
@@ -56,7 +57,7 @@
   .toolbar_toggleButton {
     display: none;
   }
-  .toolbar_logo {
+  .toolbar_logo a {
     margin-left: 0;
   }
 }
