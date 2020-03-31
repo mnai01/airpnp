@@ -29,14 +29,14 @@
 }
 
 .SideDrawer a {
-  color: darksalmon;
+  color: rgb(0, 0, 0);
   text-decoration: none;
   font-size: 1.2rem;
 }
 
 .SideDrawer a:hover,
 .SideDrawer a:active {
-  color: rebeccapurple;
+  color: darksalmon;
 }
 
 @media (min-width: 768px) {
