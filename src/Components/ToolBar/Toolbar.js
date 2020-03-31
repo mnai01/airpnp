@@ -12,7 +12,8 @@ import {
 import SearchPage from "../SearchPage/SearchPage";
 import Result from "../Results/Result/Result";
 import HomePage from "../HomePage/HomePage.";
-import CareerPath from "../CareerPath/CareerPath";
+import AboutPage from "../AboutPage/About";
+import Login from "../Auth/main";
 import ErrorPage from "../ErroPage/ErroPage";
 import PrivateResults from "../PrivateResults/PrivateResults";
 import PrivateResultsPage from "../PrivateResultPage/PrivateResultPage";
@@ -92,14 +93,14 @@ const Toolbar = props => {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/404" component={ErrorPage} />
-          <Route exact path="/About" component={CareerPath} />
+          <Route exact path="/About" component={AboutPage} />
 
           <Route exact path="/SearchPage">
             <SearchPage cords={top1} zoom={5} handle={handleResultclicked} />
           </Route>
 
           <Route exact path="/Test">
-            <SearchPage cords={top1} zoom={5} handle={handleResultclicked} />
+            <Login />
           </Route>
 
           <Route exact path="/New_York">
