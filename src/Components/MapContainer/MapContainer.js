@@ -22,6 +22,7 @@ const MapContainer = props => {
       center={[props.state.currentLat, props.state.currentLng]}
       zoom={props.state.zoom}
       onMoveEnd={props.dragUpdate}
+      maxZoom={19}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
