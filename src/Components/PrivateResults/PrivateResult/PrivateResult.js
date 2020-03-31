@@ -1,11 +1,11 @@
 import React from "react";
 import classes from "./PrivateResult.module.css";
-import Public from "../../../assets/Public.png";
+import Private from "../../../assets/Private.png";
 
 const PrivateResult = props => {
   return (
     <div className={classes.Result_Wrapper} onClick={props.click}>
-      <img src={Public}></img>
+      <img src={Private}></img>
       <div className={classes.result}>
         <h3> Hosted by: {props.result.address_id.user}</h3>
         <p>

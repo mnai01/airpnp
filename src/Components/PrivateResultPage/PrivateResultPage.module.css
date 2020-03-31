@@ -1,0 +1,9 @@
+.numToiletsContainer {
+  display: flex;
+}
+
+.accessories {
+  width: 24px;
+  height: 24px;
+  margin-top: 20px;
+}
