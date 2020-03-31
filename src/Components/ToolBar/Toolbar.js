@@ -81,7 +81,7 @@ const Toolbar = props => {
                   <Link to="/About">About</Link>
                 </li>
                 <li>
-                  <Link to="/SearchPage">SearchPage</Link>
+                  <Link to="/SearchPage">Search</Link>
                 </li>
                 <li>
                   <Link to="/Test">Test</Link>
