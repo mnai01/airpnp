@@ -65,8 +65,8 @@ const SearchPage = props => {
     setState(prevState => {
       return {
         ...prevState,
-        currentLng: str.lng.toFixed(4),
-        currentLat: str.lat.toFixed(4),
+        currentLng: parseFloat(str.lng.toFixed(4)),
+        currentLat: parseFloat(str.lat.toFixed(4)),
         markerPopup: null,
         zoom: event.target._zoom
       };

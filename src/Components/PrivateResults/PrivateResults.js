@@ -14,7 +14,7 @@ const PrivateResults = props => {
     <div className={classes.results}>
       <ul>
         {props.privResults.map(result => (
-          <Link to={"/" + result.id}>
+          <Link key={result.id} to={"/" + result.id}>
             <PrivateResult
               className="result"
               key={result.id}

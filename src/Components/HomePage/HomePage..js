@@ -46,11 +46,10 @@ const HomePage = props => {
   // });
   return (
     <Aux>
-      <Switch>
-        <div className={classes.SectionTitle}>
-          <p>Travel with a piece of mind Airpnp</p>
-        </div>
-      </Switch>
+      {/* Removed this being wrapped in a switch */}
+      <div className={classes.SectionTitle}>
+        <p>Travel with a piece of mind Airpnp</p>
+      </div>
 
       <Switch>
         {/* <TileOverview /> */}

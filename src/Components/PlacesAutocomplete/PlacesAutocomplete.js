@@ -17,7 +17,7 @@ const privateBathroomURL =
   "https://cors-anywhere.herokuapp.com/https://www.airpnpbcs430w.info/User/Addresses/API/bycoords/";
 
 const Autocomplete = props => {
-  const [address, setAddress] = useState();
+  const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState({
     lat: null,
     lng: null
@@ -78,8 +78,10 @@ const Autocomplete = props => {
       .then(data => {
         props.changeLoad(false);
         let newResults = data.data;
-        console.log(newResults);
-        props.changePrivBath(newResults);
+        if (newResults.length != 0) {
+          props.changePrivBath(newResults);
+          console.log("Updated state with" + newResults);
+        }
       })
       .catch(err => {
         console.log(err);
