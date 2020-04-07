@@ -1,0 +1,29 @@
+.Result_Wrapper {
+  padding: 5px 0px;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.Result_Wrapper img {
+  height: 15vh;
+  width: 30%;
+}
+
+.result {
+  padding: 15px;
+  cursor: pointer;
+}
+
+/* this mades lat lng also highlighted, idk why */
+/* p {
+  outline: 2px solid black;
+} */
+
+.result img {
+}
+
+.comment {
+  font-style: italic;
+  font-size: 15px;
+}

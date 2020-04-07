@@ -1,0 +1,58 @@
+.about {
+  height: calc(100vh - 56px);
+}
+
+.banner {
+  background-image: url("../../assets/darker_bathroom.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dark-layer:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.banner > div {
+  position: relative;
+  max-width: 1000px;
+  width: 94%;
+  margin: 0 auto;
+}
+
+.banner p {
+  color: white;
+  font-size: 30px;
+}
+
+.bottom {
+  width: 100%;
+  padding: 50px 0;
+  background-color: black;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  width: 94%;
+  margin: 0 auto;
+}
+
+.flex-wrap > div {
+  width: 46%;
+  margin: 10px 2%;
+  color: white;
+  text-align: center;
+}

@@ -1,0 +1,32 @@
+.UserName {
+  margin: 1px;
+  width: 450px;
+  padding: 10px;
+  font-size: 20px;
+}
+.UsernameTitle {
+  margin: 10px;
+  font-weight: 700;
+}
+
+.password {
+  margin: 10px;
+  width: 450px;
+  padding: 10px;
+  font-size: 20px;
+}
+.PasswordTitle {
+  margin-top: 10px;
+  margin-bottom: 2px;
+  font-weight: 700;
+}
+.title {
+  padding-top: 90px;
+  font-size: 32px;
+  color: red;
+}
+.LoginButton {
+  padding: 5px;
+  width: 80px;
+  font-size: 18px;
+}

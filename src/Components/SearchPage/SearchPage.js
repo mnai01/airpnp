@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-
 import Search from "../Search/Search";
-import Results from "../Results//Results";
+import Results from "../Results/Results";
+import PrivateResults from "../PrivateResults/PrivateResults";
+
 import MapContainer from "../MapContainer/MapContainer";
 import Spinner from "../Spinner/Spinner";
 import PlacesAutocomplete from "../PlacesAutocomplete/PlacesAutocomplete";
+import Modal from "../Modal/Modal";
 
+import Aux from "../../hoc/auxHOC/auxHOC";
 import classes from "./SearchPage.module.css";
 
 // const [bathrooms, setBathrooms] = useState([]);
@@ -13,15 +16,18 @@ import classes from "./SearchPage.module.css";
 // const [lng, setLng] = useState(0.0);
 // const [lat, setLat] = useState(0.0);
 
-const SearchPage = () => {
+const SearchPage = props => {
   const [state, setState] = useState({
+    privateResults: [],
     results: [],
-    currentLat: 37.0902,
-    currentLng: -95.7129,
+    currentLat: props.cords.lat,
+    currentLng: props.cords.lng,
     markerPopup: null,
-    zoom: 5,
+    zoom: props.zoom,
     loading: false
   });
+  const [currentSelected, setSelected] = useState([]);
+  const [ModalChange, setModal] = useState(false);
 
   const handleLoad = TorF => {
     setState(prevState => {
@@ -41,6 +47,12 @@ const SearchPage = () => {
     });
   };
 
+  const handlePrivBath = bathrooms => {
+    setState(prevState => {
+      return { ...prevState, privateResults: bathrooms };
+    });
+  };
+
   const handleMarker = NnotN => {
     setState(prevState => {
       return { ...prevState, markerPopup: NnotN };
@@ -53,33 +65,79 @@ const SearchPage = () => {
     setState(prevState => {
       return {
         ...prevState,
-        currentLng: str.lng.toFixed(4),
-        currentLat: str.lat.toFixed(4),
+        currentLng: parseFloat(str.lng.toFixed(4)),
+        currentLat: parseFloat(str.lat.toFixed(4)),
         markerPopup: null,
         zoom: event.target._zoom
       };
     });
   };
 
+  const handleResultClicked = key => {
+    setModal(!ModalChange);
+    const bathroomIndex = state.results.findIndex(i => {
+      return i.id === key;
+    });
+    setSelected(state.results[bathroomIndex]);
+    console.log(state.results[bathroomIndex]);
+  };
+
+  const handlePrivateResultClicked = key => {
+    const bathroomIndex = state.privateResults.findIndex(i => {
+      return i.id === key;
+    });
+    props.handle(state.privateResults[bathroomIndex]);
+    console.log(state.privateResults[bathroomIndex]);
+  };
+
+  const handleResultClickedFalse = key => {
+    setModal(false);
+  };
+
   return (
-    <div className={classes.App}>
+    <Aux>
+      <Modal changeModalFalse={handleResultClickedFalse} show={ModalChange}>
+        <h3>{currentSelected.name}</h3>
+        <p>
+          {currentSelected.street},{currentSelected.city},
+          {currentSelected.state}
+        </p>
+        <p>{currentSelected.comment}</p>
+        <p>Upvotes: {currentSelected.upvote}</p>
+        <p>Downvotes: {currentSelected.downvote}</p>
+      </Modal>
       <PlacesAutocomplete
+        changePrivBath={handlePrivBath}
         changeBath={handleBath}
         changeLoad={handleLoad}
         state={state}
         changeCord={handleCord}
       ></PlacesAutocomplete>
-      <MapContainer
-        state={state}
-        dragUpdate={handleDrag}
-        marker={handleMarker}
-      />
-      {state.loading ? (
-        <Spinner />
-      ) : (
-        <Results results={state.results}></Results>
-      )}
-    </div>
+      <div className={classes.container}>
+        <div className={classes.ResultsWrapper}>
+          {state.loading ? (
+            <Spinner />
+          ) : (
+            <div className={classes.results}>
+              <PrivateResults
+                privResults={state.privateResults}
+                click={handlePrivateResultClicked}
+              />
+              <Results
+                results={state.results}
+                click={handleResultClicked}
+              ></Results>
+            </div>
+          )}
+        </div>
+        <MapContainer
+          className={classes.MapContainer}
+          state={state}
+          dragUpdate={handleDrag}
+          marker={handleMarker}
+        />
+      </div>
+    </Aux>
   );
 };
 

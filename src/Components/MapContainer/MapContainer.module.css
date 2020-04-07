@@ -5,3 +5,11 @@
   height: 100vh;
   z-index: 100;
 }
+
+@media (max-width: 768px) {
+  .leaflet_container {
+    margin: auto;
+    width: 90%;
+    height: 80vh;
+  }
+}

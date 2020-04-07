@@ -1,0 +1,41 @@
+.searchBox_wrap {
+  padding: 15px;
+  width: 100%;
+}
+
+.searchBox input {
+  display: block;
+  width: 100%;
+  padding: 15px;
+
+  border: none;
+  outline: none;
+  background: none;
+
+  background-color: #eee;
+  border-radius: 8px;
+
+  color: #53565a;
+  font-size: 20px;
+  font-weight: 300;
+
+  transition: 0.4s ease-out;
+}
+
+.Dropdown {
+  width: 100%;
+  background: white;
+  position: relative;
+  z-index: 125;
+}
+
+.Dropdown ul {
+  margin: 0;
+  list-style: none;
+  padding-left: 0;
+  background-color: silver;
+}
+
+.Dropdown li {
+  padding: 6px;
+}

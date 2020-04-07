@@ -1,56 +1,55 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import SearchPage from "./Components/SearchPage/SearchPage";
-import HomePage from "./Components/HomePage/HomePage.";
-import About from "./Components/CareerPath/CareerPath";
+import React, { useState } from "react";
 import ToolBar from "./Components/ToolBar/Toolbar";
 import SideDrawer from "./Components/SideDrawer/SideDrawer";
 import Backdrop from "./Components/Backdrop/Backdrop";
-import CareerPath from "./Components/CareerPath/CareerPath";
-import GeoLocation from "./Components/GeoLocation/GeoLocation";
+import MainLogReg from "./Components/Auth/main";
+import Aux from "./hoc/auxHOC/auxHOC";
 
 const Content = () => {
-  return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/About">About</Link>
-            </li>
-            <li>
-              <Link to="/SearchPage">SearchPage</Link>
-            </li>
-            <li>
-              <Link to="/Test">Test</Link>
-            </li>
-          </ul>
-        </nav>
+  const [sideDraw, setsideDraw] = useState(false);
+  const [Auth, setAuth] = useState({
+    Auth: false,
+    token: null,
+  });
 
-        {/* A <Switch> looks through its children <Route>s and
+  const setAuthHandler = (token) => {
+    if (token == null) {
+      return;
+    }
+    setAuth((prevState) => {
+      return { Auth: true, token: token };
+    });
+  };
+
+  const drawerToggleClickHandler = () => {
+    setsideDraw((prevState) => {
+      return { sideDraw: !prevState.sideDraw };
+    });
+  };
+
+  const backdropClickHandler = () => {
+    setsideDraw(false);
+  };
+
+  let backdrop;
+  if (sideDraw) {
+    backdrop = <Backdrop click={backdropClickHandler} />;
+  }
+  return (
+    <Aux>
+      {Auth.Auth ? (
+        <div>
+          <ToolBar drawerClickHandler={drawerToggleClickHandler} />
+          <SideDrawer show={sideDraw} />
+          {backdrop}
+        </div>
+      ) : (
+        <MainLogReg Auth={setAuthHandler} />
+      )}
+      {/* A <Switch> looks through its children <Route>s and
                 renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/Test">
-            <ToolBar />
-            <SideDrawer />
-            <Backdrop />
-            <SearchPage />
-          </Route>
-          <Route path="/About">
-            <CareerPath />
-          </Route>
-          <Route path="/SearchPage">
-            <SearchPage />
-          </Route>
-          <Route path="/">
-            <HomePage />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+      {/* Did not do 41:11 UI nav video */}
+    </Aux>
   );
 };
 
