@@ -1,13 +1,16 @@
 import React from "react";
 
-import { Login, Register } from "../Login/index";
+// import { Login, Register } from "../Login/index";
+import Login from "../Login/Login";
+import Register from "../Login/Register";
+
 import "./main.css";
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogginActive: true
+      isLogginActive: true,
     };
   }
 
@@ -26,7 +29,9 @@ class Main extends React.Component {
       this.rightSide.classList.remove("left");
       this.rightSide.classList.add("right");
     }
-    this.setState(prevState => ({ isLogginActive: !prevState.isLogginActive }));
+    this.setState((prevState) => ({
+      isLogginActive: !prevState.isLogginActive,
+    }));
   }
 
   render() {
@@ -36,18 +41,21 @@ class Main extends React.Component {
     return (
       <div className="App">
         <div className="login">
-          <div className="container" ref={ref => (this.container = ref)}>
+          <div className="container" ref={(ref) => (this.container = ref)}>
             {isLogginActive && (
-              <Login containerRef={ref => (this.current = ref)} />
+              <Login
+                Auth={this.props.Auth}
+                containerRef={(ref) => (this.current = ref)}
+              />
             )}
             {!isLogginActive && (
-              <Register containerRef={ref => (this.current = ref)} />
+              <Register containerRef={(ref) => (this.current = ref)} />
             )}
           </div>
           <RightSide
             current={current}
             currentActive={currentActive}
-            containerRef={ref => (this.rightSide = ref)}
+            containerRef={(ref) => (this.rightSide = ref)}
             onClick={this.changeState.bind(this)}
           />
         </div>
@@ -56,7 +64,7 @@ class Main extends React.Component {
   }
 }
 
-const RightSide = props => {
+const RightSide = (props) => {
   return (
     <div
       className="right-side"
