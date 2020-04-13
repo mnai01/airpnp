@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import loginImg from "./login.svg";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 let url =
   "https://cors-anywhere.herokuapp.com/https://www.airpnpbcs430w.info/User/GetToken/";
@@ -15,6 +16,9 @@ const Login = (props) => {
       .then((res) => {
         console.log(res);
         props.Auth(res.data.token);
+        console.log(Cookies.get("Token") == null);
+        Cookies.set("Username", res.data.username, { expires: 7 });
+        Cookies.set("Token", res.data.token, { expires: 7 });
       })
       .catch((err) => {
         console.log(err);
