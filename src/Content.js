@@ -3,13 +3,14 @@ import ToolBar from "./Components/ToolBar/Toolbar";
 import SideDrawer from "./Components/SideDrawer/SideDrawer";
 import Backdrop from "./Components/Backdrop/Backdrop";
 import MainLogReg from "./Components/Auth/main";
+import Cookies from "js-cookie";
+
 import Aux from "./hoc/auxHOC/auxHOC";
 
 const Content = () => {
   const [sideDraw, setsideDraw] = useState(false);
   const [Auth, setAuth] = useState({
-    Auth: false,
-    token: null,
+    token: Cookies.get("Token"),
   });
 
   const setAuthHandler = (token) => {
@@ -17,7 +18,7 @@ const Content = () => {
       return;
     }
     setAuth((prevState) => {
-      return { Auth: true, token: token };
+      return { token: token };
     });
   };
 
@@ -37,7 +38,7 @@ const Content = () => {
   }
   return (
     <Aux>
-      {Auth.Auth ? (
+      {Auth.token ? (
         <div>
           <ToolBar drawerClickHandler={drawerToggleClickHandler} />
           <SideDrawer show={sideDraw} />
