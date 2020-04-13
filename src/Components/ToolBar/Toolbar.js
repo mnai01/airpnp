@@ -7,7 +7,7 @@ import {
   Switch,
   Route,
   Link,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 import SearchPage from "../SearchPage/SearchPage";
 import Result from "../Results/Result/Result";
@@ -15,48 +15,48 @@ import HomePage from "../HomePage/HomePage.";
 import AboutPage from "../AboutPage/About";
 import Login from "../Auth/main";
 import ErrorPage from "../ErroPage/ErroPage";
-import PrivateResults from "../PrivateResults/PrivateResults";
+import UserInfoPage from "../UserInfoPage/UserInfoPage";
 import PrivateResultsPage from "../PrivateResultPage/PrivateResultPage";
 
 import Aux from "../../hoc/auxHOC/auxHOC";
 
-const Toolbar = props => {
+const Toolbar = (props) => {
   const [top1, setTop1] = useState({
     lat: 38.8283,
-    lng: -98.5795
+    lng: -98.5795,
   });
   const [NYC, setNYC] = useState({
     lat: 40.7128,
-    lng: -74.006
+    lng: -74.006,
   });
   const [NewOrleans, setNewOrleans] = useState({
     lat: 29.9511,
-    lng: -90.0715
+    lng: -90.0715,
   });
   const [LA, setLA] = useState({
     lat: 34.0522,
-    lng: -118.2437
+    lng: -118.2437,
   });
   const [DC, setDC] = useState({
     lat: 38.9072,
-    lng: -77.0369
+    lng: -77.0369,
   });
   const [LasVegas, setLasVegas] = useState({
     lat: 36.1699,
-    lng: -115.1398
+    lng: -115.1398,
   });
   const [SF, setSF] = useState({
     lat: 37.7749,
-    lng: -122.4194
+    lng: -122.4194,
   });
   const [MI, setMI] = useState({
     lat: 25.7617,
-    lng: -80.1918
+    lng: -80.1918,
   });
 
   const [currentSelected, setSelected] = useState([]);
 
-  const handleResultclicked = bathroom => {
+  const handleResultclicked = (bathroom) => {
     setSelected([bathroom]);
   };
 
@@ -86,6 +86,9 @@ const Toolbar = props => {
                 <li>
                   <Link to="/Test">Test</Link>
                 </li>
+                <li>
+                  <Link to="/UserInfo">UserInfo</Link>
+                </li>
               </ul>
             </div>
           </nav>
@@ -101,6 +104,10 @@ const Toolbar = props => {
 
           <Route exact path="/Test">
             <Login />
+          </Route>
+
+          <Route exact path="/UserInfo">
+            <UserInfoPage />
           </Route>
 
           <Route exact path="/New_York">
