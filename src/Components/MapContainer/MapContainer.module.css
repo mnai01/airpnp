@@ -6,6 +6,46 @@
   z-index: 100;
 }
 
+.custompopup .leaflet-popup-content-wrapper {
+  background: #2c3e50;
+  color: #fff;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 0px;
+}
+.custompopup .leaflet-popup-content-wrapper a {
+  color: rgba(255, 255, 255, 0.1);
+}
+.custompopup .leaflet-popup-tip-container {
+  width: 30px;
+  height: 15px;
+}
+.custompopup .leaflet-popup-tip {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.popupContent {
+  text-align: center;
+  height: 350px;
+  /* width: 350px; */
+  margin-top: 30px;
+}
+.popupHead {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.popupText {
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.okText {
+  font-size: 15px;
+}
+
 @media (max-width: 768px) {
   .leaflet_container {
     margin: auto;
