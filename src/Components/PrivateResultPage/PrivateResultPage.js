@@ -3,7 +3,7 @@ import ErrorPage from "../ErroPage/ErroPage";
 import classes from "./PrivateResultPage.module.css";
 import paper from "../../assets/toilet-paper.png";
 
-const PrivateResultPage = props => {
+const PrivateResultPage = (props) => {
   if (props.privResults.length === 0) {
     return <ErrorPage />;
   } else {
@@ -16,9 +16,10 @@ const PrivateResultPage = props => {
     for (var i = 0; i < numOftoilets; i++) {
       numOfIcons.push(<img className={classes.accessories} src={paper}></img>);
     }
-    result.ratings.map(result => {
+    result.ratings.map((result) => {
       avgScore = avgScore + result.score;
       totalScore = avgScore / amountOfRatings;
+      console.log("RATINGINGI" + result);
     });
 
     return (
@@ -36,7 +37,7 @@ const PrivateResultPage = props => {
         <div className={classes.numToiletsContainer}>
           <p>Number of toilets: </p>
           <div>
-            {numOfIcons.map(result => {
+            {numOfIcons.map((result) => {
               return result;
             })}
           </div>
@@ -47,7 +48,7 @@ const PrivateResultPage = props => {
         <p>Sink: {result.has_shower.toString()}</p>
         <p>Fem Products: {result.has_fem_products.toString()}</p>
         <h3>Reviews</h3>
-        {result.ratings.map(result => {
+        {result.ratings.map((result) => {
           return (
             <div>
               <hr />

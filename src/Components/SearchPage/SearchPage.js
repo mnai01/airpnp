@@ -16,7 +16,7 @@ import classes from "./SearchPage.module.css";
 // const [lng, setLng] = useState(0.0);
 // const [lat, setLat] = useState(0.0);
 
-const SearchPage = props => {
+const SearchPage = (props) => {
   const [state, setState] = useState({
     privateResults: [],
     results: [],
@@ -24,73 +24,73 @@ const SearchPage = props => {
     currentLng: props.cords.lng,
     markerPopup: null,
     zoom: props.zoom,
-    loading: false
+    loading: false,
   });
   const [currentSelected, setSelected] = useState([]);
   const [ModalChange, setModal] = useState(false);
 
-  const handleLoad = TorF => {
-    setState(prevState => {
+  const handleLoad = (TorF) => {
+    setState((prevState) => {
       return { ...prevState, loading: TorF };
     });
   };
 
   const handleCord = (lat, lng) => {
-    setState(prevState => {
+    setState((prevState) => {
       return { ...prevState, currentLat: lat, currentLng: lng };
     });
   };
 
-  const handleBath = bathrooms => {
-    setState(prevState => {
+  const handleBath = (bathrooms) => {
+    setState((prevState) => {
       return { ...prevState, results: bathrooms };
     });
   };
 
-  const handlePrivBath = bathrooms => {
-    setState(prevState => {
+  const handlePrivBath = (bathrooms) => {
+    setState((prevState) => {
       return { ...prevState, privateResults: bathrooms };
     });
   };
 
-  const handleMarker = NnotN => {
-    setState(prevState => {
+  const handleMarker = (NnotN) => {
+    setState((prevState) => {
       return { ...prevState, markerPopup: NnotN };
     });
   };
 
-  const handleDrag = event => {
+  const handleDrag = (event) => {
     let str = event.target.getCenter();
-    console.log(str.lng, str.lat, event.target._zoom);
-    setState(prevState => {
+    console.log(str.lat, str.lng, event.target._zoom);
+    setState((prevState) => {
       return {
         ...prevState,
         currentLng: parseFloat(str.lng.toFixed(4)),
         currentLat: parseFloat(str.lat.toFixed(4)),
         markerPopup: null,
-        zoom: event.target._zoom
+        zoom: event.target._zoom,
       };
     });
   };
 
-  const handleResultClicked = key => {
+  const handleResultClicked = (key) => {
     setModal(!ModalChange);
-    const bathroomIndex = state.results.findIndex(i => {
+    const bathroomIndex = state.results.findIndex((i) => {
       return i.id === key;
     });
     setSelected(state.results[bathroomIndex]);
     console.log(state.results[bathroomIndex]);
   };
 
-  const handlePrivateResultClicked = key => {
-    const bathroomIndex = state.privateResults.findIndex(i => {
+  const handlePrivateResultClicked = (key) => {
+    const bathroomIndex = state.privateResults.findIndex((i) => {
       return i.id === key;
     });
     props.handle(state.privateResults[bathroomIndex]);
     console.log(state.privateResults[bathroomIndex]);
   };
 
-  const handleResultClickedFalse = key => {
+  const handleResultClickedFalse = (key) => {
     setModal(false);
   };
 
