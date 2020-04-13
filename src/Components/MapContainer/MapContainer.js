@@ -6,7 +6,7 @@ import ToiletShadow from "../../assets/Toilet-Shadow.png";
 import classes from "./MapContainer.module.css";
 import "./MapContainer.css";
 
-import { popupContent, popupHead, popupText, okText } from "./popupStyles";
+// import { popupContent, popupHead, popupText, okText } from "./popupStyles";
 
 const MapContainer = (props) => {
   var toiletIcon = L.icon({
