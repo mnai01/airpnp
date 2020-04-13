@@ -3,7 +3,7 @@ import "../SideDrawer/DrawToggleButton";
 import classes from "./Toolbar.module.css";
 import DrawToggleButton from "../SideDrawer/DrawToggleButton";
 import {
-  BrowserRouter as Router,
+  HashRouter  as Router,
   Switch,
   Route,
   Link,
@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import SearchPage from "../SearchPage/SearchPage";
 import Result from "../Results/Result/Result";
-import HomePage from "../HomePage/HomePage.";
+import HomePage from "../HomePage/HomePage";
 import AboutPage from "../AboutPage/About";
 import Login from "../Auth/main";
 import ErrorPage from "../ErroPage/ErroPage";
