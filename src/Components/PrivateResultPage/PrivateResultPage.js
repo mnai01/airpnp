@@ -23,41 +23,50 @@ const PrivateResultPage = (props) => {
     });
 
     return (
-      <div>
-        <p>
-          Average Score: {totalScore.toFixed(2)} ({amountOfRatings})
-        </p>
-        <h3>Address</h3>
-        <p>
-          {result.address_id.address_line1}, {result.address_id.city},
-          {result.address_id.state}
-        </p>
-        <p> {result.address_id.zip}</p>
-        <h3>Details</h3>
-        <div className={classes.numToiletsContainer}>
-          <p>Number of toilets: </p>
-          <div>
-            {numOfIcons.map((result) => {
-              return result;
-            })}
-          </div>
-        </div>
+      <div className="resultPage">
+        <div className={classes.resultBanner}></div>
+        <div className={classes.resultDetails}>
+          <p>
+            Average Score: {totalScore.toFixed(2)} ({amountOfRatings})
+          </p>
+          <h3>Address</h3>
+          <p>
+            {result.address_id.address_line1}, {result.address_id.city},
+            {result.address_id.state}
+          </p>
 
-        <p>Shower: {result.has_shower.toString()}</p>
-        <p>Bath: {result.has_shower.toString()}</p>
-        <p>Sink: {result.has_shower.toString()}</p>
-        <p>Fem Products: {result.has_fem_products.toString()}</p>
-        <h3>Reviews</h3>
-        {result.ratings.map((result) => {
-          return (
+          <p> {result.address_id.zip}</p>
+          <hr />
+          <h3>Details</h3>
+          <div className={classes.numToiletsContainer}>
+            <p>Number of toilets: </p>
             <div>
-              <hr />
-              <p>{result.title}</p>
-              <p>Score: {result.score}</p>
-              <p>{result.description}</p>
+              {numOfIcons.map((result) => {
+                return result;
+              })}
             </div>
-          );
-        })}
+          </div>
+
+          <p>Shower: {result.has_shower ? <span>&#10003;</span> : null}</p>
+          <p>Bath: {result.has_shower ? <span>&#10003;</span> : null}</p>
+          <p>Sink: {result.has_shower ? <span>&#10003;</span> : null}</p>
+          <p>
+            Fem Products:{" "}
+            {result.has_fem_products ? <span>&#10003;</span> : null}
+          </p>
+          <hr />
+          <h3>Reviews</h3>
+          {result.ratings.map((result) => {
+            return (
+              <div>
+                <hr />
+                <h2 className={classes.title}>{result.title}</h2>
+                <p>Score: {result.score}</p>
+                <p>{result.description}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
