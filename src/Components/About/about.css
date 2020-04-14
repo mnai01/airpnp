@@ -3,7 +3,7 @@
 }
 
 .banner {
-  background-image: url("../../assets/darker_bathroom.jpg");
+  background-image: url("../../assets/darker\ bathroom.jpg");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -61,5 +61,4 @@
   max-width: 1000px;
   width: 94%;
   padding: 15px 10px;
-  margin: 0 auto;
 }

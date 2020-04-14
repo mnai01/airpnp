@@ -7,18 +7,25 @@ const About = () => {
       <div className="banner dark-layer">
         <div>
           <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum
-            libero, deserunt saepe quod a iure aliquid optio, vitae, dicta
-            laudantium cum fuga expedita quia tempore aliquam quos recusandae
-            eveniet. Recusandae?
+            Welcome to AirPnP
           </p>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iste
-            accusantium, repellat laudantium repellendus dicta in nihil. Iure
-            exercitationem rerum voluptatem dolorum, neque excepturi aut
-            voluptatum porro corrupti alias quis ea!
+            Get to know us
           </p>
         </div>
+      </div>
+      <div className="top-content">
+        <h2>Who we are</h2>
+        <p>
+        Airpnp is the first of its kind in the world to help you find a place to do your business at the palm of your hand. 
+You will never have to experience the pain of going to storefront to storefront to ask if you can use their bathroom ever again. 
+Whether you want to use a free public bathroom or experience one of our many private bathrooms. 
+We offer over 20,000 public bathrooms in the US and many private bathroom experiences all around the world.
+        </p>
+        <p>
+        Airpnp promotes easy living, 
+        has benefited many entrepreneurs financially just by opening their bathrooms to the public at a cost and provides unique bathroom experiences to everyone.
+        </p>
       </div>
       <div className="bottom">
           <div className="flex-wrap">
