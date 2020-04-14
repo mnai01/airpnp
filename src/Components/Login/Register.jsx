@@ -19,9 +19,18 @@ const Register = (props) => {
             <input type="text" name="email" placeholder="email" />
           </div>
           <div className="form-group">
+            <label htmlFor="first name">First name</label>
+            <input type="text" name="first-name" placeholder="first name" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="last name">Last name</label>
+            <input type="text" name="last-name" placeholder="last name" />
+          </div>
+          <div className="form-group">
             <label htmlFor="password">Password</label>
             <input type="text" name="password" placeholder="password" />
           </div>
+          
         </div>
       </div>
       <div className="footer">
