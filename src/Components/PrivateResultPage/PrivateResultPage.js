@@ -4,6 +4,7 @@ import ErrorPage from "../ErroPage/ErroPage";
 import axios from "axios";
 import classes from "./PrivateResultPage.module.css";
 import paper from "../../assets/toilet-paper.png";
+
 let result;
 let totalScore = 0;
 let avgScore = 0;
@@ -12,12 +13,14 @@ let numOftoilets;
 let numOfIcons;
 
 const PrivateResultPage = (props) => {
-  const [temp, setTemp] = useState(false);
+  const [dataObtained, setDataObtained] = useState(false);
   const [loading, setLoading] = useState(true);
   const [Result, setResult] = useState();
   let id = useLocation();
   id = id.pathname.replace("/room/", "");
+
   useEffect(() => {
+    // check if a result passed in from the parameters is empty, if so run the axios call to get that specific result
     if (props.privResults.length === 0) {
       axios
         .get(
@@ -27,29 +30,36 @@ const PrivateResultPage = (props) => {
         .then((res) => {
           setResult(res.data[0]);
           setLoading(false);
+          // if we run an axios call and pull nothing then temp is true and bathroom id was invalid
           if (res == undefined || null) {
-            setTemp(false);
+            setDataObtained(false);
           } else {
-            setTemp(true);
+            setDataObtained(true);
           }
         })
         .catch((err) => {
-          setTemp(false);
+          setDataObtained(false);
           console.log(err);
         });
+      // if its not empty and we have the result then set loading to false and temp to true
     } else {
       setLoading(false);
-      setTemp(true);
+      setDataObtained(true);
     }
   }, []);
 
+  // if result in parameters is empty
   if (props.privResults.length === 0) {
-    if (temp) {
+    // if temp is true (which for here represents a successful axios return)
+    if (dataObtained) {
+      // if axios data is empty
       if (Result == undefined || null) {
         console.log("in here", Result);
-        setTemp(false);
+        // temp to false
+        setDataObtained(false);
         return;
       }
+      // does it still run this code after all of that or does the return make it exit?
       console.log("returnred", Result);
       result = Result;
       console.log("resultssss", result);
@@ -87,11 +97,13 @@ const PrivateResultPage = (props) => {
   }
   return (
     <div>
+      {/* If loading is true then display loading icon, else, check the temp condition */}
       {loading ? (
         <div>LOADING</div>
       ) : (
         <div>
-          {temp ? (
+          {/* if temp is true which means axios pulled a valid entry then display it, else, show the error page */}
+          {dataObtained ? (
             <div className="resultPage">
               <div className={classes.resultBanner}></div>
               <div className={classes.resultDetails}>
