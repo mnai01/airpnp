@@ -3,7 +3,7 @@ import "../SideDrawer/DrawToggleButton";
 import classes from "./Toolbar.module.css";
 import DrawToggleButton from "../SideDrawer/DrawToggleButton";
 import {
-  HashRouter  as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Link,
@@ -146,7 +146,7 @@ const Toolbar = (props) => {
             <SearchPage cords={MI} zoom={11} handle={handleResultclicked} />
           </Route>
 
-          <Router path="/:id">
+          <Router exact path="/room/:id">
             {console.log(currentSelected)}
             <PrivateResultsPage privResults={currentSelected} />
           </Router>

@@ -6,15 +6,15 @@ import {
   Switch,
   Route,
   Link,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 
-const PrivateResults = props => {
+const PrivateResults = (props) => {
   return (
     <div className={classes.results}>
       <ul>
-        {props.privResults.map(result => (
-          <Link key={result.id} to={"/" + result.id}>
+        {props.privResults.map((result) => (
+          <Link key={result.id} to={"/room/" + result.id}>
             <PrivateResult
               className="result"
               key={result.id}
