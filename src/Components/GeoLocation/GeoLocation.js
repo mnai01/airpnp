@@ -1,24 +1,26 @@
-import React, { useState } from "react";
-import { GoogleComponent } from "react-google-location";
+import { useState, useEffect } from "react";
 
-const GeoLocation = () => {
-  const [place, setState] = useState({});
+export const usePosition = () => {
+  const [position, setPosition] = useState({});
+  const [error, setError] = useState(null);
 
-  return (
-    <div>
-      <GoogleComponent
-        apiKey={`${process.env.REACT_APP_API_KEY}`}
-        language={"en"}
-        country={"country:in|country:us"}
-        coordinates={true}
-        locationBoxStyle={"custom-style"}
-        locationListStyle={"custom-style-list"}
-        onChange={e => {
-          setState(e);
-        }}
-      />
-    </div>
-  );
+  const onChange = ({ coords }) => {
+    setPosition({
+      latitude: coords.latitude,
+      longitude: coords.longitude,
+    });
+  };
+
+  const onError = (error) => {
+    setError(error.message);
+  };
+
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      setError("Geolocation is not supported");
+      return;
+    }
+    let watcher = navigator.geolocation.watchPosition(onChange, onError);
+  }, []);
+  return { ...position, error };
 };
-
-export default GeoLocation;

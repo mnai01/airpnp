@@ -4,6 +4,7 @@ import L from "leaflet";
 import Toilet from "../../assets/Toiletv1.png";
 import ToiletShadow from "../../assets/Toilet-Shadow.png";
 import classes from "./MapContainer.module.css";
+import * as Geolocation from "../Geolocation/Geolocation";
 import "./MapContainer.css";
 
 // import { popupContent, popupHead, popupText, okText } from "./popupStyles";
@@ -18,6 +19,9 @@ const MapContainer = (props) => {
     shadowAnchor: [23, 40], // the same for the shadow
     popupAnchor: [0, -30],
   });
+
+  let currentLocation = Geolocation.usePosition();
+  console.log("This is geolocations", currentLocation);
 
   return (
     <Map
