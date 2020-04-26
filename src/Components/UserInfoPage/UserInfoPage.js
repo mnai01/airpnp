@@ -40,9 +40,35 @@ const UserInfoPage = (props) => {
   }
 
   useEffect(() => {
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (Cookies.get("Token")) {
+      config.headers["Authorization"] = `Token ${Cookies.get("Token")}`;
+    }
+
+    // axios
+    // .get(
+    //   "https://www.airpnpbcs430w.info/User/SecureGetUserFromToken/",
+    //   config
+    // )
+    // .then((res) => {
+    //   let arr = [];
+    //   const result = res.data[0];
+    //   console.log("THIS IS REQUEST WITH TOKEN HEADER--", res);
+    //   setUserInfo(result);
+    //   result.addresses.map((res) => {
+    //     arr.push(...res.bathrooms);
+    //   });
+    //   setBathrooms(arr);
+    // });
+
     axios
-      .get(url + Cookies.get("Username"))
+      .get(url + Cookies.get("Username"), config)
       .then((data) => {
+        console.log(data);
         let arr = [];
         console.log(url + Cookies.get("Username"));
         const result = data.data[0];
@@ -55,16 +81,6 @@ const UserInfoPage = (props) => {
       .catch((err) => {
         console.log(err);
       });
-    let config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    if (Cookies.get("Token")) {
-      config.headers[
-        "Authorization"
-      ] = `Token ${Cookies.get("Token")}`;
-    }
   }, []);
 
   return (
