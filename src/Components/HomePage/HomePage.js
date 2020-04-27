@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import MainMenuMap from "../MainMenuMap/MainMenuMap";
-import PlacesAutocomplete from "../PlacesAutocomplete/PlacesAutocomplete";
-import { HashRouter  as Router, Switch, Route, Link } from "react-router-dom";
-import SearchPage from "../SearchPage/SearchPage";
+import React, { useState, useEffect } from "react";
+import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import axios from "axios";
 
 import NewYork from "../../assets/NewYork.jpg";
 import NewOrleanIMG from "../../assets/NewOrleans.jpg";
@@ -15,45 +13,32 @@ import MiamiIMG from "../../assets/Miami.jpg";
 import Aux from "../../hoc/auxHOC/auxHOC";
 import classes from "./HomePage.module.css";
 
-const HomePage = props => {
-  // const [NYC, setNYC] = useState({
-  //   lat: 40.7128,
-  //   lng: -74.006
-  // });
-  // const [NewOrleans, setNewOrleans] = useState({
-  //   lat: 29.9511,
-  //   lng: -90.0715
-  // });
-  // const [LA, setLA] = useState({
-  //   lat: 34.0522,
-  //   lng: -118.2437
-  // });
-  // const [DC, setDC] = useState({
-  //   lat: 38.9072,
-  //   lng: -77.0369
-  // });
-  // const [LasVegas, setLasVegas] = useState({
-  //   lat: 36.1699,
-  //   lng: -115.1398
-  // });
-  // const [SF, setSF] = useState({
-  //   lat: 37.7749,
-  //   lng: -122.4194
-  // });
-  // const [MI, setMI] = useState({
-  //   lat: 25.7617,
-  //   lng: -80.1918
-  // });
+const URLTOP5 = "https://www.airpnpbcs430w.info/User/Addresses/API/top5all/";
+
+const HomePage = () => {
+  const [top5, settop5] = useState(null);
+  const [loading, setloading] = useState(true);
+
+  useEffect(() => {
+    axios
+      .get(URLTOP5)
+      .then((res) => {
+        console.log(res);
+        settop5(res.data);
+        setloading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <Aux>
-      {/* Removed this being wrapped in a switch */}
-      <div className={classes.SectionTitle}>
-        <p>Travel with a piece of mind Airpnp</p>
-      </div>
-
       <Switch>
-        {/* <TileOverview /> */}
         <Route exact path="/" exact>
+          <div className={classes.SectionTitle}>
+            <p>Travel with a piece of mind Airpnp</p>
+          </div>
           <div className={classes.HomePageItems}>
             <Link to="/New_York">
               <div className={classes.HomePageItem}>
@@ -101,35 +86,26 @@ const HomePage = props => {
               </div>
             </Link>
           </div>
+          <div className={classes.SectionTitle}>
+            <p>Travel with some of our top bathrooms on your side</p>
+          </div>
+          <div>
+            {loading ? (
+              <h1>Loading</h1>
+            ) : (
+              <div className={classes.HomePageItems}>
+                {top5.map((result) => (
+                  <Link key={result.id} to={"/PrivateBathroom/" + result.id}>
+                    <div className={classes.HomePageItem}>
+                      <img src={MiamiIMG}></img>
+                      <h3>{result.address_id.user}</h3>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         </Route>
-
-        {/* <Route exact path="/New_York">
-          <SearchPage cords={NYC} zoom={13} />
-        </Route>
-
-        <Route path="/New_Orleans">
-          <SearchPage cords={NewOrleans} zoom={11} />
-        </Route>
-
-        <Route path="/Los_Angeles">
-          <SearchPage cords={LA} zoom={11} />
-        </Route>
-
-        <Route path="/Washington_DC">
-          <SearchPage cords={DC} zoom={11} />
-        </Route>
-
-        <Route path="/Las_Vegas">
-          <SearchPage cords={LasVegas} zoom={11} />
-        </Route>
-
-        <Route path="/San_Francisco">
-          <SearchPage cords={SF} zoom={11} />
-        </Route>
-
-        <Route path="/Miami">
-          <SearchPage cords={MI} zoom={11} />
-        </Route> */}
       </Switch>
     </Aux>
   );
