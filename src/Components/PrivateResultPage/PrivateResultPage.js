@@ -4,6 +4,7 @@ import ErrorPage from "../ErroPage/ErroPage";
 import axios from "axios";
 import classes from "./PrivateResultPage.module.css";
 import paper from "../../assets/toilet-paper.png";
+import Schedule from "../Schedule/Schedule";
 
 let result;
 let totalScore = 0;
@@ -17,7 +18,7 @@ const PrivateResultPage = (props) => {
   const [loading, setLoading] = useState(true);
   const [Result, setResult] = useState();
   let id = useLocation();
-  id = id.pathname.replace("/room/", "");
+  id = id.pathname.replace("/PrivateBathroom/", "");
 
   useEffect(() => {
     // check if a result passed in from the parameters is empty, if so run the axios call to get that specific result
@@ -68,9 +69,9 @@ const PrivateResultPage = (props) => {
       amountOfRatings = result.ratings.length;
       numOftoilets = result.num_of_toilets;
       numOfIcons = [];
-      for (var i = 0; i < numOftoilets; i++) {
+      for (let i = 0; i < numOftoilets; i++) {
         numOfIcons.push(
-          <img className={classes.accessories} src={paper}></img>
+          <img key={i} className={classes.accessories} src={paper}></img>
         );
       }
       result.ratings.map((result) => {
@@ -153,17 +154,16 @@ const PrivateResultPage = (props) => {
                   ) : null}
                 </p>
                 <hr />
+                <Schedule id={id} />
                 <h3>Reviews</h3>
-                {result.ratings.map((result) => {
-                  return (
-                    <div>
-                      <hr />
-                      <h2 className={classes.title}>{result.title}</h2>
-                      <p>Score: {result.score}</p>
-                      <p>{result.description}</p>
-                    </div>
-                  );
-                })}
+                {result.ratings.map((result, i) => (
+                  <div key={i}>
+                    <hr />
+                    <h2 className={classes.title}>{result.title}</h2>
+                    <p>Score: {result.score}</p>
+                    <p>{result.description}</p>
+                  </div>
+                ))}
               </div>
             </div>
           ) : (
