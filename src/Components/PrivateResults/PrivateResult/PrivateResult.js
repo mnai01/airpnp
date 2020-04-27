@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./PrivateResult.module.css";
 import Private from "../../../assets/Private.png";
 
-const PrivateResult = props => {
+const PrivateResult = (props) => {
   return (
     <div className={classes.Result_Wrapper} onClick={props.click}>
       <img src={Private}></img>
