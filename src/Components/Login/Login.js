@@ -4,7 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 let url =
-  "https://cors-anywhere.herokuapp.com/https://www.airpnpbcs430w.info/User/GetToken/";
+  "https://cors-anywhere.herokuapp.com/https://www.airpnpbcs430w.info/User/login/";
 
 const Login = (props) => {
   const [login, setLogin] = useState(null);
@@ -12,7 +12,7 @@ const Login = (props) => {
 
   const loginHandler = () => {
     axios
-      .get(url + login + "/" + password)
+      .post(url, { username: login, password: password })
       .then((res) => {
         console.log(res);
         props.Auth(res.data.token);
