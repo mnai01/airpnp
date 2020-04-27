@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import Search from "../Search/Search";
 import Results from "../Results/Results";
 import PrivateResults from "../PrivateResults/PrivateResults";
-
 import MapContainer from "../MapContainer/MapContainer";
 import Spinner from "../Spinner/Spinner";
 import PlacesAutocomplete from "../PlacesAutocomplete/PlacesAutocomplete";
 import Modal from "../Modal/Modal";
+import * as GeoLocation from "../GeoLocation/GeoLocation";
+import { Button } from "reactstrap";
 
 import Aux from "../../hoc/auxHOC/auxHOC";
 import classes from "./SearchPage.module.css";
@@ -27,7 +28,9 @@ const SearchPage = (props) => {
     loading: false,
   });
   const [currentSelected, setSelected] = useState([]);
+  const [currentLocationLoading, setCurrentLocationLoading] = useState(true);
   const [ModalChange, setModal] = useState(false);
+  const [myLocation, setMylocation] = useState({ latitude: 0, longitude: 0 });
 
   const handleLoad = (TorF) => {
     setState((prevState) => {
@@ -94,6 +97,18 @@ const SearchPage = (props) => {
     setModal(false);
   };
 
+  let currentLocation = GeoLocation.usePosition();
+  const handleGetLocation = () => {
+    if (currentLocation.latitude || currentLocation.longitude !== undefined) {
+      setMylocation({
+        latitude: currentLocation.latitude,
+        longitude: currentLocation.longitude,
+      });
+      setCurrentLocationLoading(false);
+      handleCord(currentLocation.latitude, currentLocation.longitude);
+    }
+  };
+
   return (
     <Aux>
       <Modal changeModalFalse={handleResultClickedFalse} show={ModalChange}>
@@ -106,6 +121,8 @@ const SearchPage = (props) => {
         <p>Upvotes: {currentSelected.upvote}</p>
         <p>Downvotes: {currentSelected.downvote}</p>
       </Modal>
+      <Button onClick={handleGetLocation}>Press to find your location</Button>
+
       <PlacesAutocomplete
         changePrivBath={handlePrivBath}
         changeBath={handleBath}
@@ -131,6 +148,8 @@ const SearchPage = (props) => {
           )}
         </div>
         <MapContainer
+          loading={currentLocationLoading}
+          current_location={myLocation}
           className={classes.MapContainer}
           state={state}
           dragUpdate={handleDrag}
