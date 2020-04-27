@@ -73,9 +73,7 @@ const Autocomplete = (props) => {
       },
     };
     if (Cookies.get("Token")) {
-      config.headers[
-        "Authorization"
-      ] = `Token ${"e44b667a61a43bcecb2c73eb4ef59c924ec71163"}`;
+      config.headers["Authorization"] = `Token ${Cookies.get("Token")}`;
       console.log(true);
     }
 
@@ -96,8 +94,6 @@ const Autocomplete = (props) => {
         }
       })
       .catch((err) => {
-        console.log("IN Catch ");
-
         console.log(err);
       });
 
@@ -114,9 +110,6 @@ const Autocomplete = (props) => {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div className={classes.searchBox}>
-            <p>Lat:{coordinates.lat}</p>
-            <p>lng:{coordinates.lng}</p>
-
             <input {...getInputProps({ placeholder: "Type address" })} />
             <div>{loading ? <div>...loading</div> : null}</div>
             {suggestions.map((suggestion) => {

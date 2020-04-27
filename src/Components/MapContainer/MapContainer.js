@@ -1,10 +1,10 @@
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import L from "leaflet";
+import * as GeoLocation from "../GeoLocation/GeoLocation";
 import Toilet from "../../assets/Toiletv1.png";
 import ToiletShadow from "../../assets/Toilet-Shadow.png";
 import classes from "./MapContainer.module.css";
-import * as GeoLocation from "../GeoLocation/GeoLocation";
 import "./MapContainer.css";
 
 // import { popupContent, popupHead, popupText, okText } from "./popupStyles";
@@ -13,15 +13,12 @@ const MapContainer = (props) => {
   var toiletIcon = L.icon({
     iconUrl: Toilet,
     shadowUrl: ToiletShadow,
-    iconSize: [50, 80], // size of the icon
-    shadowSize: [50, 75], // size of the shadow
+    iconSize: [35, 60], // size of the icon
+    shadowSize: [35, 55], // size of the shadow
     iconAnchor: [22, 40], // point of the icon which will correspond to marker's location
     shadowAnchor: [23, 40], // the same for the shadow
     popupAnchor: [0, -30],
   });
-
-  let currentLocation = GeoLocation.usePosition();
-  console.log("This is geoLocations", currentLocation);
 
   return (
     <Map
@@ -37,6 +34,18 @@ const MapContainer = (props) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
+      {props.loading ? (
+        ""
+      ) : (
+        <Marker
+          // icon={toiletIcon}
+          position={[
+            props.current_location.latitude,
+            props.current_location.longitude,
+          ]}
+        />
+      )}
+      ))}
       {props.state.privateResults.map((result) => (
         <Marker
           // icon={toiletIcon}
@@ -44,7 +53,6 @@ const MapContainer = (props) => {
           position={[result.address_id.latitude, result.address_id.longitude]}
         />
       ))}
-
       {props.state.results.map((result) => (
         <Marker
           icon={toiletIcon}
