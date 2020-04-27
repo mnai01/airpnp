@@ -17,6 +17,7 @@ import Login from "../Auth/main";
 import ErrorPage from "../ErroPage/ErroPage";
 import UserInfoPage from "../UserInfoPage/UserInfoPage";
 import PrivateResultsPage from "../PrivateResultPage/PrivateResultPage";
+import Schedule from "../Schedule/Schedule";
 
 import Aux from "../../hoc/auxHOC/auxHOC";
 
@@ -146,11 +147,15 @@ const Toolbar = (props) => {
             <SearchPage cords={MI} zoom={11} handle={handleResultclicked} />
           </Route>
 
-          <Router exact path="/room/:id">
+          <Router exact path="/PrivateBathrooms/:id">
             {console.log(currentSelected)}
             <PrivateResultsPage privResults={currentSelected} />
           </Router>
 
+          <Router exact path="/PrivateBathroom/:id">
+            {console.log(currentSelected)}
+            <PrivateResultsPage privResults={currentSelected} />
+          </Router>
           {/* section 11, 205
               each page for each result */}
 
