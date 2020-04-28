@@ -17,7 +17,7 @@ import Login from "../Auth/main";
 import ErrorPage from "../ErroPage/ErroPage";
 import UserInfoPage from "../UserInfoPage/UserInfoPage";
 import PrivateResultsPage from "../PrivateResultPage/PrivateResultPage";
-import Schedule from "../Schedule/Schedule";
+import HostBathroom from "../Schedule(Rich.old)/Bathroom";
 
 import Aux from "../../hoc/auxHOC/auxHOC";
 
@@ -90,6 +90,9 @@ const Toolbar = (props) => {
                 <li>
                   <Link to="/UserInfo">UserInfo</Link>
                 </li>
+                <li>
+                  <Link to="/HostBathroom">Host Bathroom</Link>
+                </li>
               </ul>
             </div>
           </nav>
@@ -109,6 +112,10 @@ const Toolbar = (props) => {
 
           <Route exact path="/UserInfo">
             <UserInfoPage />
+          </Route>
+
+          <Route exact path="/HostBathroom">
+            <HostBathroom />
           </Route>
 
           <Route exact path="/New_York">
