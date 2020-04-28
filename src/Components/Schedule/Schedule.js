@@ -24,6 +24,8 @@ let ClMinute;
 let DsYear;
 let DsMonth;
 let DsDays;
+let DsHour;
+let DsMinute;
 let dateSelected;
 const Schedule = (props) => {
   const DAYS = [
@@ -58,7 +60,7 @@ const Schedule = (props) => {
     id;
 
   const REGISTER_URL =
-    "Bathrooms/ReserveBathroom/<int:bathroom_id>/<str:week_day>/<open_time>/<date>/<how_long>/";
+    "https://www.airpnpbcs430w.info/Bathrooms/ReserveBathroom/";
 
   useEffect(() => {
     axios
@@ -120,9 +122,20 @@ const Schedule = (props) => {
       if (date.getMonth() < 10) {
         month = String("0" + (date.getMonth() + 1));
       }
+      if (date.getHours() == 0) {
+        DsHour = "00";
+      } else {
+        DsHour = date.getHours();
+      }
+      if (date.getMinutes() == 0) {
+        DsMinute = "00";
+      } else {
+        DsMinute = date.getMinutes();
+      }
       DsYear = String(date.getFullYear());
       DsMonth = month;
       DsDays = String(date.getDate());
+      console.log("TIMERHE", DsHour, DsMinute);
       dateSelected = DsYear + DsMonth + DsDays;
       // checks if there are scheduled times for that bathroom
       if (unavailable.length !== 0) {
@@ -153,29 +166,56 @@ const Schedule = (props) => {
   };
 
   const handleSchedule = () => {
-    let config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    console.log(
+      DsYear +
+        "-" +
+        DsMonth +
+        "-" +
+        DsDays +
+        "T" +
+        DsHour +
+        ":" +
+        DsMinute +
+        ":" +
+        "00"
+    );
+    let Token = null;
     if (Cookies.get("Token")) {
-      config.headers["Authorization"] = `Token ${Cookies.get("Token")}`;
+      Token = `Token ${Cookies.get("Token")}`;
     }
 
+    let data = JSON.stringify({
+      bathroom_id: String(id),
+      week_day: String(DAYS[date.getDay()]),
+      open_time: String(OpHour + ":" + OpMinute + ":" + "00"),
+      how_long: String("00:15:00"),
+      date: String(
+        DsYear +
+          "-" +
+          DsMonth +
+          "-" +
+          DsDays +
+          "T" +
+          DsHour +
+          ":" +
+          DsMinute +
+          ":" +
+          "00"
+      ),
+    });
+    console.log(data);
     axios
-      .post(REGISTER_URL, {
-        bathroom_id: id,
-        week_day: DAYS[days.getDay()],
-        Authorization: Cookies.get("Token"),
-        open_time: OpHour + ":" + OpMinute + ":" + "00",
-        how_long: 15,
-        date: DsYear + "-" + DsMonth + "-" + DsDays,
+      .post(REGISTER_URL, data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: String(Token),
+        },
       })
       .then((res) => {
         console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
       });
   };
 
@@ -219,7 +259,7 @@ const Schedule = (props) => {
           ))}
         </div>
       )}
-      <Button>Request</Button>
+      <Button onClick={handleSchedule}>Request</Button>
     </div>
   );
 };
