@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "reactstrap";
+import Cookies from "js-cookie";
 
 import DatePicker, { setHours, setMinutes } from "react-datepicker";
 import axios from "axios";
@@ -16,7 +17,14 @@ import "react-datepicker/dist/react-datepicker.css";
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 let excludeTime = [];
 let d = new Date();
-
+let OpHour;
+let OpMinute;
+let ClHour;
+let ClMinute;
+let DsYear;
+let DsMonth;
+let DsDays;
+let dateSelected;
 const Schedule = (props) => {
   const DAYS = [
     "Sunday",
@@ -46,7 +54,8 @@ const Schedule = (props) => {
     id;
 
   const APPOINTMENT_URL =
-    "https://www.airpnpbcs430w.info/Bathrooms/Appointments/22/";
+    "https://cors-anywhere.herokuapp.com/https://www.airpnpbcs430w.info/Bathrooms/Appointments/" +
+    id;
 
   const REGISTER_URL =
     "Bathrooms/ReserveBathroom/<int:bathroom_id>/<str:week_day>/<open_time>/<date>/<how_long>/";
@@ -77,13 +86,19 @@ const Schedule = (props) => {
   useEffect(() => {
     if (days !== null) {
       days.map((res) => {
+        // sets hours avaibale for the day selected
+        // it takes the day selected by the user and then matches it with the
+        // week_day variable in the days state. This days states hold 7 days
+        // each day with a time of open and closing.
+        // once mapped, if the day selected equals the day in days state
+        //  Monday(user) ===  Monday(hosts) then take the hosts hours for that monday
         if (res.week_day === selectedDay) {
           if (res.timesAvailable.length !== 0) {
-            let OpHour = res.timesAvailable[0].open_time.substring(0, 2);
-            let OpMinute = res.timesAvailable[0].open_time.substring(3, 5);
-            let ClHour = res.timesAvailable[0].close_time.substring(0, 2);
-            let ClMinute = res.timesAvailable[0].close_time.substring(3, 5);
-            console.log(OpHour, OpMinute, ClHour, ClMinute);
+            OpHour = res.timesAvailable[0].open_time.substring(0, 2);
+            OpMinute = res.timesAvailable[0].open_time.substring(3, 5);
+            ClHour = res.timesAvailable[0].close_time.substring(0, 2);
+            ClMinute = res.timesAvailable[0].close_time.substring(3, 5);
+            console.log("TImes ava", OpHour, OpMinute, ClHour, ClMinute);
             setselectedData({
               open_time_hr: OpHour,
               open_time_min: OpMinute,
@@ -105,10 +120,13 @@ const Schedule = (props) => {
       if (date.getMonth() < 10) {
         month = String("0" + (date.getMonth() + 1));
       }
-      let dateSelected =
-        String(date.getFullYear()) + month + String(date.getDate());
+      DsYear = String(date.getFullYear());
+      DsMonth = month;
+      DsDays = String(date.getDate());
+      dateSelected = DsYear + DsMonth + DsDays;
       // checks if there are scheduled times for that bathroom
       if (unavailable.length !== 0) {
+        console.log(unavailable.length);
         // maps each day in the scheduled table
         unavailable.map((res) => {
           // checks if any appointments match the current dateSelected
@@ -131,14 +149,27 @@ const Schedule = (props) => {
   const handleChange = (date) => {
     setDate(date);
     setselectedDay(DAYS[date.getDay()]);
-    console.log(date);
+    console.log(date.getFullYear());
   };
 
   const handleSchedule = () => {
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (Cookies.get("Token")) {
+      config.headers["Authorization"] = `Token ${Cookies.get("Token")}`;
+    }
+
     axios
       .post(REGISTER_URL, {
         bathroom_id: id,
         week_day: DAYS[days.getDay()],
+        Authorization: Cookies.get("Token"),
+        open_time: OpHour + ":" + OpMinute + ":" + "00",
+        how_long: 15,
+        date: DsYear + "-" + DsMonth + "-" + DsDays,
       })
       .then((res) => {
         console.log(res);
