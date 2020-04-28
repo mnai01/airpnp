@@ -91,7 +91,7 @@ const UserInfoPage = (props) => {
             <img src="https://www.w3schools.com/w3images/avatar2.png" alt="" />
           </div>
           <h2>
-            {Cookies.get("Username")} ({totalScore})
+            {Cookies.get("Username")} ({totalScore.toFixed(2)})
           </h2>
           {userInfo ? (
             <Aux>
