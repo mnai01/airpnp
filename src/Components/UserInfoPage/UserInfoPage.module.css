@@ -1,18 +1,82 @@
 .userInfoDiv{
-    max-width: 1200px;
+    max-width: 1000px;
     display: flex;
     width: 100%;
     margin: 0 auto;
     justify-content: space-between;
     margin-top: 20px;
     padding: 0 15px;
+    align-items: flex-start;
 }
 
-.userWrap, .formWrap{
-    width: 48%;
+.userWrap{
     padding: 20px;
-    background-color: rgb(245, 245, 245);
-    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.4), 0 0 6px 0 rgba(0,0,0,0.3);
+    border: 1px solid rgb(221, 221, 221);
+}
+
+.rightSection{
+    flex: 1;
+    margin-left: 5%;
+}
+
+.rightSection > h3, .rightSection h6{
+    color: rgb(107, 107, 107);
+}
+
+.userName{
+    margin-bottom: 15px;
+}
+
+.userAction{
+    text-align: center;
+}
+
+.userAction a, .userAction span{
+    color: teal;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.userAction a:hover{
+    text-decoration: none;
+    color: teal;
+}
+
+.userAction a:first-child{
+    font-weight: bold;
+}
+
+.review .imgTextWrap p{
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.iconWrap{
+    margin-bottom: 10px;
+}
+
+.iconWrap p{
+   display: inline;
+   margin-left: 6px;
+}
+
+.imgTextWrap {
+display: flex;
+align-items: center;
+}
+
+.imgTextWrap p{
+    margin-left: 10px;
+}
+
+.review{
+    margin-bottom: 10px;
+}
+
+.reviewSection h4{
+    margin: 20px 0;
+    color: rgb(107, 107, 107);
 }
 
 .imgRounded{
@@ -20,9 +84,24 @@
     height: 100px;
     overflow: hidden;
     border-radius: 50%;
+    margin: 0 auto;
 }
 
-.imgRounded img{
+.bathroomRounded{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.smallImgRounded{
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.imgRounded img, .bathroomRounded img, .smallImgRounded img{
     width: 100%;
     height: 100%;
 }
@@ -35,8 +114,8 @@
         margin: 0 auto;
     }
 
-    .userWrap, .formWrap{
+    .userWrap, .rightSection{
         width: 100%;
-        margin-top: 20px;
+        margin-top: 25px;
     }
 }
