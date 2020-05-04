@@ -1,7 +1,3 @@
-.about {
-  height: calc(100vh - 56px);
-}
-
 .banner {
   background-image: url("../../assets/darker_bathroom.jpg");
   background-size: cover;
@@ -12,6 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: calc(100vh - 56px);
 }
 
 .dark-layer:before {
