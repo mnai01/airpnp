@@ -40,6 +40,7 @@ const Schedule = (props) => {
   const [excludeTime1, setexcludeTime1] = useState(null);
   const [days, setDays] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [noDatePicked, setNoDatePicked] = useState(false);
   const [date, setDate] = useState(null);
   const [selectedDay, setselectedDay] = useState();
   const [unavailable, setUnavailable] = useState({});
@@ -167,12 +168,25 @@ const Schedule = (props) => {
   }, [date]);
 
   const handleChange = (date) => {
+    if (date === null) {
+      setNoDatePicked(true);
+      return;
+    } else {
+      setNoDatePicked(false);
+    }
     setDate(date);
     setselectedDay(DAYS[date.getDay()]);
     console.log(date.getFullYear());
   };
 
   const handleSchedule = () => {
+    if (date === null) {
+      setNoDatePicked(true);
+      return;
+    } else {
+      setNoDatePicked(false);
+    }
+
     console.log(
       DsYear +
         "-" +
@@ -230,10 +244,24 @@ const Schedule = (props) => {
     <div>
       <Form>
         <FormGroup>
-          <Label type="text" className="Title">
+          <h4 type="text" className="Title">
             Reserve the Bathroom
-          </Label>
+          </h4>
         </FormGroup>
+
+        {noDatePicked ? (
+          <FormGroup>
+            <Label type="text" className="Title">
+              NO DATE PICKED
+            </Label>
+          </FormGroup>
+        ) : (
+          <FormGroup>
+            <Label type="text" className="Title">
+              please pick a date
+            </Label>
+          </FormGroup>
+        )}
 
         <FormGroup>
           <DatePicker
