@@ -34,79 +34,81 @@ const HomePage = () => {
 
   return (
     <Aux>
-      <Switch>
-        <Route exact path="/" exact>
-          <div className={classes.SectionTitle}>
-            <p>Travel with a piece of mind Airpnp</p>
-          </div>
-          <div className={classes.HomePageItems}>
-            <Link to="/New_York">
-              <div className={classes.HomePageItem}>
-                <img src={NewYork}></img>
-                <h3>New York</h3>
-              </div>
-            </Link>
+      <div className={classes.PageContainer}>
+        <Switch>
+          <Route exact path="/" exact>
+            <div className={classes.SectionTitle}>
+              <p>Travel with a piece of mind Airpnp</p>
+            </div>
+            <div className={classes.HomePageItems}>
+              <Link to="/New_York">
+                <div className={classes.HomePageItem}>
+                  <img src={NewYork}></img>
+                  <h3>New York</h3>
+                </div>
+              </Link>
 
-            <Link to="/New_Orleans">
-              <div className={classes.HomePageItem}>
-                <img src={NewOrleanIMG}></img>
-                <h3>New Orleans</h3>
-              </div>
-            </Link>
+              <Link to="/New_Orleans">
+                <div className={classes.HomePageItem}>
+                  <img src={NewOrleanIMG}></img>
+                  <h3>New Orleans</h3>
+                </div>
+              </Link>
 
-            <Link to="/Los_Angeles">
-              <div className={classes.HomePageItem}>
-                <img src={Los_AngelesIMG}></img>
-                <h3>Los Angeles</h3>
-              </div>
-            </Link>
+              <Link to="/Los_Angeles">
+                <div className={classes.HomePageItem}>
+                  <img src={Los_AngelesIMG}></img>
+                  <h3>Los Angeles</h3>
+                </div>
+              </Link>
 
-            <Link to="/Washington_DC">
-              <div className={classes.HomePageItem}>
-                <img src={WashingtonIMG}></img>
-                <h3>Washington DC</h3>
-              </div>
-            </Link>
-            <Link to="/Las_Vegas">
-              <div className={classes.HomePageItem}>
-                <img src={Las_VegasIMG}></img>
-                <h3>Las Vegas</h3>
-              </div>
-            </Link>
-            <Link to="/San_Francisco">
-              <div className={classes.HomePageItem}>
-                <img src={San_FranciscoIMG}></img>
-                <h3>San Francisco</h3>
-              </div>
-            </Link>
-            <Link to="/Miami">
-              <div className={classes.HomePageItem}>
-                <img src={MiamiIMG}></img>
-                <h3>Miami</h3>
-              </div>
-            </Link>
-          </div>
-          <div className={classes.SectionTitle}>
-            <p>Travel with some of our top bathrooms on your side</p>
-          </div>
-          <div>
-            {loading ? (
-              <h1>Loading</h1>
-            ) : (
-              <div className={classes.HomePageItems}>
-                {top5.map((result) => (
-                  <Link key={result.id} to={"/PrivateBathroom/" + result.id}>
-                    <div className={classes.HomePageItem}>
-                      <img src={MiamiIMG}></img>
-                      <h3>{result.address_id.user}</h3>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        </Route>
-      </Switch>
+              <Link to="/Washington_DC">
+                <div className={classes.HomePageItem}>
+                  <img src={WashingtonIMG}></img>
+                  <h3>Washington DC</h3>
+                </div>
+              </Link>
+              <Link to="/Las_Vegas">
+                <div className={classes.HomePageItem}>
+                  <img src={Las_VegasIMG}></img>
+                  <h3>Las Vegas</h3>
+                </div>
+              </Link>
+              <Link to="/San_Francisco">
+                <div className={classes.HomePageItem}>
+                  <img src={San_FranciscoIMG}></img>
+                  <h3>San Francisco</h3>
+                </div>
+              </Link>
+              <Link to="/Miami">
+                <div className={classes.HomePageItem}>
+                  <img src={MiamiIMG}></img>
+                  <h3>Miami</h3>
+                </div>
+              </Link>
+            </div>
+            <div className={classes.SectionTitle}>
+              <p>Travel with some of our top bathrooms on your side</p>
+            </div>
+            <div>
+              {loading ? (
+                <h1>Loading</h1>
+              ) : (
+                <div className={classes.HomePageItems}>
+                  {top5.map((result) => (
+                    <Link key={result.id} to={"/PrivateBathroom/" + result.id}>
+                      <div className={classes.HomePageItem}>
+                        <img src={MiamiIMG}></img>
+                        <h3>{result.address_id.user}</h3>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          </Route>
+        </Switch>
+      </div>
     </Aux>
   );
 };
