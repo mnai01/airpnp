@@ -21,13 +21,13 @@ import {
   geocodeByPlaceId,
   getLatLng,
 } from "react-places-autocomplete";
-import classes from "./Bathroom.module.css";
+import classes from "./HostBathroomPage.module.css";
 
 const URL = "https://www.airpnpbcs430w.info/Bathrooms/Create/";
 const GET_ADDRESS = "https://www.airpnpbcs430w.info/User/Addresses/FromToken/";
 const POST_ADDRESS = "https://www.airpnpbcs430w.info/User/Addresses/Create/";
 
-const Bathroom = (props) => {
+const HostBathroomPage = (props) => {
   const [file, setFile] = useState();
   const [addressAutoComplete, setAddressAutoComplete] = useState("");
   const [addressSelected, setAddressSelected] = useState({ id: null });
@@ -789,4 +789,4 @@ const Bathroom = (props) => {
   );
 };
 
-export default Bathroom;
+export default HostBathroomPage;
