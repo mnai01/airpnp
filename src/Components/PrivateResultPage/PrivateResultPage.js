@@ -4,8 +4,12 @@ import ErrorPage from "../ErroPage/ErroPage";
 import axios from "axios";
 import classes from "./PrivateResultPage.module.css";
 import paper from "../../assets/toilet-paper.png";
+import shower from "../../assets/shower.png";
+import basin from "../../assets/basin.png";
+import bath from "../../assets/bathing.png";
+import { Link } from "react-router-dom";
 import Schedule from "../Schedule/Schedule";
-
+import { Button, Form, FormGroup, Label, Input, Spinner } from "reactstrap";
 let result;
 let totalScore = 0;
 let avgScore = 0;
@@ -108,6 +112,9 @@ const PrivateResultPage = (props) => {
             <div className="resultPage">
               <div className={classes.resultBanner}></div>
               <div className={classes.resultDetails}>
+                <Link to={"/PublicUserInfo/" + result.address_id.user}>
+                  <h4>{result.address_id.user}</h4>
+                </Link>
                 <p>
                   Average Score: {totalScore.toFixed(2)} ({amountOfRatings})
                 </p>
@@ -132,30 +139,48 @@ const PrivateResultPage = (props) => {
                 <p>
                   Shower:{" "}
                   {result.has_shower ? (
-                    <img className={classes.accessories} src={paper}></img>
-                  ) : null}
+                    <img className={classes.accessories} src={shower}></img>
+                  ) : (
+                    <i class="fas fa-ban"></i>
+                  )}
                 </p>
                 <p>
                   Bath:{" "}
-                  {result.has_shower ? (
-                    <img className={classes.accessories} src={paper}></img>
-                  ) : null}
+                  {result.has_bath ? (
+                    <img className={classes.accessories} src={bath}></img>
+                  ) : (
+                    <i class="fas fa-ban"></i>
+                  )}
                 </p>
                 <p>
                   Sink:{" "}
-                  {result.has_shower ? (
-                    <img className={classes.accessories} src={paper}></img>
-                  ) : null}
+                  {result.has_sink ? (
+                    <img className={classes.accessories} src={basin}></img>
+                  ) : (
+                    <i class="fas fa-ban"></i>
+                  )}
                 </p>
                 <p>
                   Fem Products:{" "}
                   {result.has_fem_products ? (
                     <img className={classes.accessories} src={paper}></img>
-                  ) : null}
+                  ) : (
+                    <i class="fas fa-heart"></i>
+                  )}
                 </p>
                 <hr />
                 <Schedule id={id} />
+                <hr />
                 <h3>Reviews</h3>
+                <Form>
+                  <FormGroup>
+                    <Input type="textarea" name="text" id="exampleText" />
+                  </FormGroup>
+                  <FormGroup>
+                    <Button>Submit Review</Button>
+                  </FormGroup>
+                </Form>
+
                 {result.ratings.map((result, i) => (
                   <div key={i}>
                     <hr />
