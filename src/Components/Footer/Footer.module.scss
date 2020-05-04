@@ -1,0 +1,42 @@
+.footer {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas:
+    "about repos"
+    "copy copy";
+  column-gap: 1rem;
+  padding: 2rem 2rem;
+  width: 100%;
+  background-color: #f5f5f5;
+  color: #2c2c2c;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+
+  .about {
+    grid-area: about;
+  }
+  .repos {
+    grid-area: repos;
+    ul {
+      padding: 0;
+      list-style: none;
+    }
+    a {
+      font-weight: bolder;
+      color: inherit;
+    }
+  }
+  .copy {
+    grid-area: copy;
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-areas:
+      "about"
+      "repos"
+      "copy";
+    .copy {
+      text-align: left;
+    }
+  }
+}
