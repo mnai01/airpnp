@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, Spinner } from "reactstrap";
 import Cookies from "js-cookie";
 
 import DatePicker, { setHours, setMinutes } from "react-datepicker";
@@ -221,45 +221,55 @@ const Schedule = (props) => {
 
   return (
     <div>
-      <p type="text" className="Title">
-        Reserve the Bathroom
-      </p>
-      <DatePicker
-        selected={date}
-        onChange={(date) => handleChange(date)}
-        showTimeSelect
-        timeFormat="HH:mm"
-        timeIntervals={15}
-        excludeTimes={excludeTime}
-        minTime={d.setHours(
-          selectedData.open_time_hr,
-          selectedData.open_time_min
-        )}
-        maxTime={d.setHours(
-          selectedData.close_time_hr,
-          selectedData.close_time_min
-        )}
-        dateFormat="MM d, yyyy H:mm"
-      />
+      <Form>
+        <FormGroup>
+          <Label type="text" className="Title">
+            Reserve the Bathroom
+          </Label>
+        </FormGroup>
 
-      {loading ? (
-        <div>loading</div>
-      ) : (
-        <div>
-          {days.map((res, i) => (
-            <div key={i}>
-              <div>
-                {res.timesAvailable.map((innerRes, ind) => (
-                  <div key={ind}>
-                    {res.week_day} {innerRes.open_time} {innerRes.close_time}
+        <FormGroup>
+          <DatePicker
+            selected={date}
+            onChange={(date) => handleChange(date)}
+            showTimeSelect
+            timeFormat="HH:mm"
+            timeIntervals={15}
+            excludeTimes={excludeTime}
+            minTime={d.setHours(
+              selectedData.open_time_hr,
+              selectedData.open_time_min
+            )}
+            maxTime={d.setHours(
+              selectedData.close_time_hr,
+              selectedData.close_time_min
+            )}
+            dateFormat="MM d, yyyy H:mm"
+          />
+
+          {loading ? (
+            <div>loading</div>
+          ) : (
+            <div>
+              {days.map((res, i) => (
+                <div key={i}>
+                  <div>
+                    {res.timesAvailable.map((innerRes, ind) => (
+                      <div key={ind}>
+                        {res.week_day} {innerRes.open_time}{" "}
+                        {innerRes.close_time}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      )}
-      <Button onClick={handleSchedule}>Request</Button>
+          )}
+        </FormGroup>
+        <FormGroup>
+          <Button onClick={handleSchedule}>Request</Button>
+        </FormGroup>
+      </Form>
     </div>
   );
 };
