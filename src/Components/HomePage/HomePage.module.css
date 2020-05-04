@@ -2,6 +2,11 @@ a {
   text-decoration: none;
 }
 
+.PageContainer {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
 .HomePageItems {
   display: flex;
   flex-direction: row;
@@ -44,4 +49,11 @@ a {
   font-size: x-large;
   font-weight: 500;
   margin-left: 2rem;
+}
+
+@media (max-width: 768px) {
+  .PageContainer {
+    margin-left: 0vh;
+    margin-right: 0vh;
+  }
 }
