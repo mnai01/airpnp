@@ -1,7 +1,8 @@
 import React from "react";
+import { HashRouter as Router, Link } from "react-router-dom";
 import "./SideDrawer.css";
 
-const SideDrawer = props => {
+const SideDrawer = (props) => {
   let drawerClasses = ["SideDrawer"];
   if (props.show) {
     drawerClasses = ["SideDrawer open"];
@@ -9,18 +10,26 @@ const SideDrawer = props => {
   return (
     <nav className={drawerClasses}>
       <ul>
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/About">About</a>
-        </li>
-        <li>
-          <a href="/SearchPage">SearchPage</a>
-        </li>
-        <li>
-          <a href="/Test">Test</a>
-        </li>
+        <Router>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/About">About</Link>
+          </li>
+          <li>
+            <Link to="/SearchPage">SearchPage</Link>
+          </li>
+          <li>
+            <Link to="/Test">Test</Link>
+          </li>
+          <li>
+            <Link to="/UserInfo">UserInfo</Link>
+          </li>
+          <li>
+            <Link to="/HostBathroom">Host Bathroom</Link>
+          </li>
+        </Router>
       </ul>
     </nav>
   );
