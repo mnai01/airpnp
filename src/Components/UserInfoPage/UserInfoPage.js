@@ -3,17 +3,17 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import Aux from "../../hoc/auxHOC/auxHOC";
 import classes from "./UserInfoPage.module.css";
+import { Link } from "react-router-dom";
 import {
   Button,
   Form,
   FormGroup,
   Label,
   Input,
-  FormText,
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
+  Spinner,
 } from "reactstrap";
 
 const url =
@@ -32,6 +32,7 @@ const UserInfoPage = (props) => {
   const toggle = () => setModal(!modal);
 
   if (bathrooms != null) {
+    console.log(bathrooms);
     // console.log("Bathrooms in loop", bathrooms);
     bathrooms.map((results) => {
       // console.log("this is resule", results);
@@ -54,6 +55,13 @@ const UserInfoPage = (props) => {
   }
 
   useEffect(() => {
+    avgScore = 0;
+    totalScore = 0;
+    amountOfRatings = 0;
+    bathroom = 0;
+    temp = null;
+    totalScoreForOneBathroom = [];
+
     let config = {
       headers: {
         "Content-Type": "application/json",
@@ -63,30 +71,15 @@ const UserInfoPage = (props) => {
       config.headers["Authorization"] = `Token ${Cookies.get("Token")}`;
     }
 
-    // axios
-    // .get(
-    //   "https://www.airpnpbcs430w.info/User/SecureGetUserFromToken/",
-    //   config
-    // )
-    // .then((res) => {
-    //   let arr = [];
-    //   const result = res.data[0];
-    //   console.log("THIS IS REQUEST WITH TOKEN HEADER--", res);
-    //   setUserInfo(result);
-    //   result.addresses.map((res) => {
-    //     arr.push(...res.bathrooms);
-    //   });
-    //   setBathrooms(arr);
-    // });
-
     axios
-      .get(url + Cookies.get("Username"), config)
-      .then((data) => {
-        console.log(data);
+      .get(
+        "https://www.airpnpbcs430w.info/User/SecureGetUserFromToken/",
+        config
+      )
+      .then((res) => {
         let arr = [];
-        console.log(url + Cookies.get("Username"));
-        const result = data.data[0];
-        console.log("result", result);
+        const result = res.data;
+        console.log("THIS IS REQUEST WITH TOKEN HEADER--", res);
         setUserInfo(result);
         result.addresses.map((res) => {
           arr.push(...res.bathrooms);
@@ -96,6 +89,24 @@ const UserInfoPage = (props) => {
       .catch((err) => {
         console.log(err);
       });
+
+    //   axios
+    //     .get(url + Cookies.get("Username"), config)
+    //     .then((data) => {
+    //       console.log(data);
+    //       let arr = [];
+    //       console.log(url + Cookies.get("Username"));
+    //       const result = data.data[0];
+    //       console.log("result", result);
+    //       setUserInfo(result);
+    //       result.addresses.map((res) => {
+    //         arr.push(...res.bathrooms);
+    //       });
+    //       setBathrooms(arr);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
   }, []);
 
   return (
@@ -110,50 +121,63 @@ const UserInfoPage = (props) => {
             <span onClick={toggle}>Edit profile</span>
           </div>
           <hr />
-          <div class={classes.iconWrap}>
-            <i class="fas fa-home"></i>
-            <p>
-              Lives in {userInfo ? <span>{userInfo.home_address}</span> : null}
-            </p>
+          <div className={classes.iconWrap}>
+            <i className="fas fa-home"></i>
+            <p>Lives in </p>
+            {userInfo ? (
+              <span>{userInfo.home_address}</span>
+            ) : (
+              <Spinner size="sm" color="primary" />
+            )}
           </div>
-          <div class={classes.iconWrap}>
-            <i class="far fa-comment-dots"></i>
-            <p>2 reviews</p>
+          <div className={classes.iconWrap}>
+            <i className="far fa-comment-dots"></i>
+            <p>{amountOfRatings} reviews</p>
           </div>
-          <div class={classes.iconWrap}>
-            <i class="fas fa-check-circle"></i>
+          <div className={classes.iconWrap}>
+            <i className="fas fa-check-circle"></i>
             <p>Verified</p>
           </div>
           <hr />
           <h4 className={classes.userName}>
-            {Cookies.get("Username")} ({totalScore.toFixed(2)}) provided
+            {userInfo ? (
+              userInfo.username
+            ) : (
+              <Spinner size="sm" color="primary" />
+            )}{" "}
+            ({totalScore.toFixed(2)}) provided
           </h4>
           <div>
             <div className={classes.iconWrap}>
-              <i class="far fa-check-circle"></i>
+              <i className="far fa-check-circle"></i>
               <p>Government ID</p>
             </div>
             <div className={classes.iconWrap}>
-              <i class="far fa-check-circle"></i>
+              <i className="far fa-check-circle"></i>
               <p>Selfie</p>
             </div>
             <div className={classes.iconWrap}>
-              <i class="far fa-check-circle"></i>
+              <i className="far fa-check-circle"></i>
               <p>Email Address</p>
             </div>
             <div className={classes.iconWrap}>
-              <i class="far fa-check-circle"></i>
+              <i className="far fa-check-circle"></i>
               <p>Phone Number</p>
             </div>
           </div>
         </div>
         <div className={classes.rightSection}>
           <h1>
-            Hi, I'm {userInfo ? <span>{userInfo.first_name}</span> : null}
+            Hi, I'm{" "}
+            {userInfo ? (
+              <span>{userInfo.first_name}</span>
+            ) : (
+              <Spinner size="sm" color="primary" />
+            )}
           </h1>
           <h3>Bathrooms</h3>
           <hr />
-          <div className={classes.imgTextWrap}>
+          {/* <div className={classes.imgTextWrap}>
             <div className={classes.bathroomRounded}>
               <img
                 src="https://media.brstatic.com/2019/07/07162544/Untitled17.jpeg"
@@ -161,11 +185,61 @@ const UserInfoPage = (props) => {
               />
             </div>
             <p>Bathroom name</p>
+          </div> */}
+          <div className={classes.imgTextWrap}>
+            {bathrooms != null ? (
+              bathrooms.map((e, i) => (
+                <>
+                  {bathrooms.length != 0 &&
+                    bathrooms.map((result, j) => (
+                      <>
+                        <Link
+                          key={result.id}
+                          to={"/PrivateBathroom/" + result.id}
+                        >
+                          <p>{result.address_id.city}</p>
+                        </Link>
+                      </>
+                    ))}
+                </>
+              ))
+            ) : (
+              <Spinner style={{ width: "3rem", height: "3rem" }} />
+            )}
           </div>
           <hr />
           <div className={classes.reviewSection}>
-            <h4>2 Reviews</h4>
+            <h4>{amountOfRatings} Reviews</h4>
             <div className={classes.review}>
+              {bathrooms != null ? (
+                <>
+                  {bathrooms.length != 0 &&
+                    bathrooms.map((result, i) => (
+                      <>
+                        {result.ratings.length != 0 &&
+                          result.ratings.map((ratings, j) => (
+                            <div key={j}>
+                              <hr />
+                              <Link
+                                key={result.id}
+                                to={"/PrivateBathroom/" + result.id}
+                              >
+                                <h4 className={classes.title}>
+                                  {ratings.title}
+                                </h4>
+                              </Link>
+                              <p>Score: {ratings.score}</p>
+                              <p>{ratings.description}</p>
+                            </div>
+                          ))}
+                      </>
+                    ))}
+                </>
+              ) : (
+                <Spinner style={{ width: "3rem", height: "3rem" }} />
+              )}
+            </div>
+            {/* <div className={classes.review}>
               <h6>March 2019</h6>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
@@ -196,7 +270,7 @@ const UserInfoPage = (props) => {
                 </div>
                 <p>Shelly, Portland, OR</p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div>
