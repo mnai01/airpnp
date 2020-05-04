@@ -29,7 +29,7 @@ const POST_ADDRESS = "https://www.airpnpbcs430w.info/User/Addresses/Create/";
 
 const Bathroom = (props) => {
   const [file, setFile] = useState();
-  const [addressAutoComplete, setAddressAutoComplete] = useState(false);
+  const [addressAutoComplete, setAddressAutoComplete] = useState("");
   const [addressSelected, setAddressSelected] = useState({ id: null });
   const [addressComponents, setAddressComponents] = useState({
     address2: null,
@@ -416,14 +416,14 @@ const Bathroom = (props) => {
                 name="selectMultiple"
                 id="multipleBathrooms"
                 onChange={(e) => handleAddressPicked(e.target.value)}
-                mulitple
+                mulitple="true"
               >
                 {addressList ? (
                   <>
                     {console.log(addressList)}
                     <option>Please Pick a bathroom...</option>
-                    {addressList.map((res) => (
-                      <option>{res.address_line1}</option>
+                    {addressList.map((res, i) => (
+                      <option key={i}>{res.address_line1}</option>
                     ))}
                   </>
                 ) : (
@@ -603,7 +603,7 @@ const Bathroom = (props) => {
                 name="selectMultiple"
                 id="multipleBathrooms"
                 onChange={(e) => console.log(e.target.value)}
-                mulitple
+                mulitple="true"
               >
                 <option>1</option>
                 <option>2</option>
@@ -631,148 +631,148 @@ const Bathroom = (props) => {
             <FormGroup>
               <h1>Bathroom(s) Availability</h1>
             </FormGroup>
-            <h5 for="StartTime">Monday</h5>
+            <h5>Monday</h5>
             <Row form>
               <FormGroup>
-                <Label for="StartTime">Opening Time</Label>
+                <Label>Opening Time</Label>
                 <Input
                   type="time"
-                  placeHolder="ex: 11:00"
+                  placeholder="ex: 11:00"
                   onChange={(e) => handleMondayTimeOpen(e.target.value)}
                   value={mondayTimes.open_time}
                 ></Input>
               </FormGroup>
               <FormGroup>
-                <Label for="EndTime">Closing Time</Label>
+                <Label>Closing Time</Label>
                 <Input
                   type="time"
-                  placeHolder="ex: 18:00 "
+                  placeholder="ex: 18:00 "
                   onChange={(e) => handleMondayTimeClose(e.target.value)}
                   value={mondayTimes.close_time}
                 ></Input>
               </FormGroup>
             </Row>
-            <h5 for="StartTime">Tuesday</h5>
+            <h5>Tuesday</h5>
             <Row form>
               <FormGroup>
-                <Label for="StartTime">Opening Time</Label>
+                <Label>Opening Time</Label>
                 <Input
                   type="time"
-                  placeHolder="ex: 11:00 "
+                  placeholder="ex: 11:00 "
                   onChange={(e) => handleTuesdayTimeOpen(e.target.value)}
                   value={tuesdayTimes.open_time}
                 ></Input>
               </FormGroup>
               <FormGroup>
-                <Label for="EndTime">Closing Time</Label>
+                <Label>Closing Time</Label>
                 <Input
                   type="time"
-                  placeHolder="ex: 18:00 "
+                  placeholder="ex: 18:00 "
                   onChange={(e) => handleTuesdayTimeClose(e.target.value)}
                   value={tuesdayTimes.close_time}
                 ></Input>
               </FormGroup>
             </Row>
-            <h5 for="StartTime">Wednesday</h5>
+            <h5>Wednesday</h5>
             <Row form>
               <FormGroup>
-                <Label for="StartTime">Opening Time</Label>
+                <Label>Opening Time</Label>
                 <Input
                   type="time"
-                  placeHolder="ex: 11:00"
+                  placeholder="ex: 11:00"
                   onChange={(e) => handleWednesdayTimeOpen(e.target.value)}
-                  value={wednesdayTimes.close_time}
+                  value={wednesdayTimes.open_time}
                 ></Input>
               </FormGroup>
               <FormGroup>
-                <Label for="EndTime">Closing Time</Label>
+                <Label>Closing Time</Label>
                 <Input
                   type="time"
-                  placeHolder="ex: 18:00 "
+                  placeholder="ex: 18:00 "
                   onChange={(e) => handleWednesdayTimeClose(e.target.value)}
                   value={wednesdayTimes.close_time}
                 ></Input>
               </FormGroup>
             </Row>
-            <h5 for="StartTime">Thursday</h5>
+            <h5>Thursday</h5>
             <Row form>
               <FormGroup>
-                <Label for="StartTime">Opening Time</Label>
+                <Label>Opening Time</Label>
                 <Input
                   type="time"
-                  placeHolder="ex: 11:00 "
+                  placeholder="ex: 11:00 "
                   onChange={(e) => handleThursdayTimeOpen(e.target.value)}
                   value={thursdayTimes.open_time}
                 ></Input>
               </FormGroup>
               <FormGroup>
-                <Label for="EndTime">Closing Time</Label>
+                <Label>Closing Time</Label>
                 <Input
                   type="time"
-                  placeHolder="ex: 18:00 "
+                  placeholder="ex: 18:00 "
                   onChange={(e) => handleThursdayTimeClose(e.target.value)}
                   value={thursdayTimes.close_time}
                 ></Input>
               </FormGroup>
             </Row>
-            <h5 for="StartTime">Friday</h5>
+            <h5>Friday</h5>
             <Row form>
               <FormGroup>
-                <Label for="StartTime">Opening Time</Label>
+                <Label>Opening Time</Label>
                 <Input
                   type="time"
-                  placeHolder="ex: 11:00 "
+                  placeholder="ex: 11:00 "
                   onChange={(e) => handleFridayTimeOpen(e.target.value)}
                   value={fridayTimes.open_time}
                 ></Input>
               </FormGroup>
               <FormGroup>
-                <Label for="EndTime">Closing Time</Label>
+                <Label>Closing Time</Label>
                 <Input
                   type="time"
-                  placeHolder="ex: 18:00 "
+                  placeholder="ex: 18:00 "
                   onChange={(e) => handleFridayTimeClose(e.target.value)}
                   value={fridayTimes.close_time}
                 ></Input>
               </FormGroup>
             </Row>
-            <h5 for="StartTime">Saturday</h5>
+            <h5>Saturday</h5>
             <Row form>
               <FormGroup>
-                <Label for="StartTime">Opening Time</Label>
+                <Label>Opening Time</Label>
                 <Input
                   type="time"
-                  placeHolder="ex: 11:00 "
+                  placeholder="ex: 11:00 "
                   onChange={(e) => handleSaturdayTimeOpen(e.target.value)}
                   value={saturdayTimes.open_time}
                 ></Input>
               </FormGroup>
               <FormGroup>
-                <Label for="EndTime">Closing Time</Label>
+                <Label>Closing Time</Label>
                 <Input
                   type="time"
-                  placeHolder="ex: 18:00 "
+                  placeholder="ex: 18:00 "
                   onChange={(e) => handleSaturdayTimeClose(e.target.value)}
                   value={saturdayTimes.close_time}
                 ></Input>
               </FormGroup>
             </Row>
-            <h5 for="StartTime">Sunday</h5>
+            <h5>Sunday</h5>
             <Row form>
               <FormGroup>
-                <Label for="StartTime">Opening Time</Label>
+                <Label>Opening Time</Label>
                 <Input
                   type="time"
-                  placeHolder="ex: 11:00 "
+                  placeholder="ex: 11:00 "
                   onChange={(e) => handleSundayTimeOpen(e.target.value)}
                   value={sundayTimes.open_time}
                 ></Input>
               </FormGroup>
               <FormGroup>
-                <Label for="EndTime">Closing Time</Label>
+                <Label>Closing Time</Label>
                 <Input
                   type="time"
-                  placeHolder="ex: 18:00 "
+                  placeholder="ex: 18:00 "
                   onChange={(e) => handleSundayTimeClose(e.target.value)}
                   value={sundayTimes.close_time}
                 ></Input>
