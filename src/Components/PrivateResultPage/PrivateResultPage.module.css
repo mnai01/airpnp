@@ -5,11 +5,11 @@
 .accessories {
   width: 24px;
   height: 24px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
-.resultBanner{
-  background:  url("https://img-new.cgtrader.com/items/1824127/91c140991a/hq-modern-hotel-room-3d-model-low-poly-fbx-unitypackage-prefab-uasset.jpg");
+.resultBanner {
+  background: url("https://img-new.cgtrader.com/items/1824127/91c140991a/hq-modern-hotel-room-3d-model-low-poly-fbx-unitypackage-prefab-uasset.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -17,12 +17,12 @@
   height: 400px;
 }
 
-.resultDetails{
+.resultDetails {
   max-width: 1000px;
   width: 96%;
   margin: 0 auto;
 }
 
-.title{
+.title {
   text-transform: capitalize;
 }
