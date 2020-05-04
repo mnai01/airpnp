@@ -9,12 +9,14 @@ let url =
 const Login = (props) => {
   const [login, setLogin] = useState(null);
   const [password, setPassword] = useState(null);
+  const [status, setStatus] = useState(null);
 
   const loginHandler = () => {
     axios
       .post(url, { username: login, password: password })
       .then((res) => {
         console.log(res);
+        setStatus(res.data);
         props.Auth(res.data.token);
         console.log(Cookies.get("Token") == null);
         Cookies.set("Username", res.data.username, { expires: 7 });
@@ -63,6 +65,7 @@ const Login = (props) => {
           </div>
         </div>
       </div>
+      {typeof status !== "object" && <p>{status}</p>}
       <div className="footer">
         <button type="button" className="btn" onClick={loginHandler}>
           Login
