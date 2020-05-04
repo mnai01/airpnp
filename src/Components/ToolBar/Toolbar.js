@@ -16,8 +16,10 @@ import AboutPage from "../AboutPage/About";
 import Login from "../Auth/main";
 import ErrorPage from "../ErroPage/ErroPage";
 import UserInfoPage from "../UserInfoPage/UserInfoPage";
+import PublicUserInfoPage from "../PublicUserInfoPage/PublicUserInfoPage";
 import PrivateResultsPage from "../PrivateResultPage/PrivateResultPage";
 import HostBathroom from "../Schedule(Rich.old)/Bathroom";
+import Footer from "../Footer/Footer";
 
 import Aux from "../../hoc/auxHOC/auxHOC";
 
@@ -114,6 +116,10 @@ const Toolbar = (props) => {
             <UserInfoPage />
           </Route>
 
+          <Route exact path="/PublicUserInfo/:name">
+            <PublicUserInfoPage />
+          </Route>
+
           <Route exact path="/HostBathroom">
             <HostBathroom />
           </Route>
@@ -169,6 +175,7 @@ const Toolbar = (props) => {
           <Redirect to="/404" />
         </Switch>
       </Router>
+      <Footer />
     </Aux>
   );
 };
