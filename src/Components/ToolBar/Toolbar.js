@@ -18,7 +18,7 @@ import ErrorPage from "../ErroPage/ErroPage";
 import UserInfoPage from "../UserInfoPage/UserInfoPage";
 import PublicUserInfoPage from "../PublicUserInfoPage/PublicUserInfoPage";
 import PrivateResultsPage from "../PrivateResultPage/PrivateResultPage";
-import HostBathroom from "../Schedule(Rich.old)/Bathroom";
+import HostBathroomPage from "../HostBathroomPage/HostBathroomPage";
 import Footer from "../Footer/Footer";
 
 import Aux from "../../hoc/auxHOC/auxHOC";
@@ -121,7 +121,7 @@ const Toolbar = (props) => {
           </Route>
 
           <Route exact path="/HostBathroom">
-            <HostBathroom />
+            <HostBathroomPage />
           </Route>
 
           <Route exact path="/New_York">
