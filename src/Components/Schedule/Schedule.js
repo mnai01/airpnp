@@ -119,8 +119,12 @@ const Schedule = (props) => {
       });
       excludeTime = [];
       let month = date.getMonth();
+      let day = date.getDate();
       if (date.getMonth() < 10) {
         month = String("0" + (date.getMonth() + 1));
+      }
+      if (date.getDate() < 10) {
+        day = String("0" + date.getDate());
       }
       if (date.getHours() == 0) {
         DsHour = "00";
@@ -134,7 +138,7 @@ const Schedule = (props) => {
       }
       DsYear = String(date.getFullYear());
       DsMonth = month;
-      DsDays = String(date.getDate());
+      DsDays = day;
       console.log("TIMERHE", DsHour, DsMinute);
       dateSelected = DsYear + DsMonth + DsDays;
       // checks if there are scheduled times for that bathroom
@@ -142,6 +146,9 @@ const Schedule = (props) => {
         console.log(unavailable.length);
         // maps each day in the scheduled table
         unavailable.map((res) => {
+          // console.log(dateSelected);
+          // console.log(res.date.substring(0, 10).replace(/\-/g, ""));
+
           // checks if any appointments match the current dateSelected
           // have to format each date to make the comparison possible
           if (res.date.substring(0, 10).replace(/\-/g, "") === dateSelected) {
