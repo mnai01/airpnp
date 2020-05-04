@@ -3,17 +3,39 @@ import React, { useEffect, useState } from "react";
 import L from "leaflet";
 import * as GeoLocation from "../GeoLocation/GeoLocation";
 import Toilet from "../../assets/Toiletv1.png";
+import Current from "../../assets/Current.png";
 import ToiletShadow from "../../assets/Toilet-Shadow.png";
+import PrivateBathrooms from "../../assets/Golden-toilet-paper.png";
+
 import classes from "./MapContainer.module.css";
 import "./MapContainer.css";
-
 // import { popupContent, popupHead, popupText, okText } from "./popupStyles";
 
 const MapContainer = (props) => {
   var toiletIcon = L.icon({
     iconUrl: Toilet,
     shadowUrl: ToiletShadow,
-    iconSize: [35, 60], // size of the icon
+    iconSize: [35, 45], // size of the icon
+    shadowSize: [30, 40], // size of the shadow
+    iconAnchor: [22, 40], // point of the icon which will correspond to marker's location
+    shadowAnchor: [23, 40], // the same for the shadow
+    popupAnchor: [0, -30],
+  });
+
+  var currentLocationIcon = L.icon({
+    iconUrl: Current,
+    // shadowUrl: ToiletShadow,
+    iconSize: [35, 40], // size of the icon
+    shadowSize: [35, 55], // size of the shadow
+    iconAnchor: [22, 40], // point of the icon which will correspond to marker's location
+    shadowAnchor: [23, 40], // the same for the shadow
+    popupAnchor: [0, -30],
+  });
+
+  var PrivateBathroomsIcon = L.icon({
+    iconUrl: PrivateBathrooms,
+    // shadowUrl: ToiletShadow,
+    iconSize: [35, 40], // size of the icon
     shadowSize: [35, 55], // size of the shadow
     iconAnchor: [22, 40], // point of the icon which will correspond to marker's location
     shadowAnchor: [23, 40], // the same for the shadow
@@ -38,7 +60,7 @@ const MapContainer = (props) => {
         ""
       ) : (
         <Marker
-          // icon={toiletIcon}
+          icon={currentLocationIcon}
           position={[
             props.current_location.latitude,
             props.current_location.longitude,
@@ -48,7 +70,7 @@ const MapContainer = (props) => {
       ))}
       {props.state.privateResults.map((result) => (
         <Marker
-          // icon={toiletIcon}
+          // icon={PrivateBathroomsIcon}
           key={result.id}
           position={[result.address_id.latitude, result.address_id.longitude]}
         />
