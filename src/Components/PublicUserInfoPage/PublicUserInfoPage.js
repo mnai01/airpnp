@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import axios from "axios";
 import Aux from "../../hoc/auxHOC/auxHOC";
 import classes from "./PublicUserInfoPage.module.css";
@@ -27,6 +26,15 @@ let temp;
 let totalScoreForOneBathroom = [];
 
 const PublicUserInfoPage = (props) => {
+  // needed because if your in mobile view
+  // and open the menu window the reviews/scoores/double
+  avgScore = 0;
+  totalScore = 0;
+  amountOfRatings = 0;
+  bathroom = 0;
+  temp = null;
+  totalScoreForOneBathroom = [];
+
   const [userInfo, setUserInfo] = useState(null);
   const [bathrooms, setBathrooms] = useState(null);
   const [modal, setModal] = useState(false);
@@ -60,6 +68,9 @@ const PublicUserInfoPage = (props) => {
   useEffect(() => {
     // if user goes back to the back before a refresh
     // these numbers need to reset
+    // Needed to reset the scores back to 0 every time
+    // the page is re-rendered. if not it will just keep adding
+    // creating a much higher total each re-render
     avgScore = 0;
     totalScore = 0;
     amountOfRatings = 0;
@@ -98,7 +109,12 @@ const PublicUserInfoPage = (props) => {
           <div class={classes.iconWrap}>
             <i class="fas fa-home"></i>
             <p>
-              Lives in {userInfo ? <span>{userInfo.home_address}</span> : null}
+              Lives in{" "}
+              {userInfo ? (
+                <span>{userInfo.home_address}</span>
+              ) : (
+                <Spinner size="sm" color="primary" />
+              )}
             </p>
           </div>
           <div class={classes.iconWrap}>
@@ -133,7 +149,14 @@ const PublicUserInfoPage = (props) => {
           </div>
         </div>
         <div className={classes.rightSection}>
-          <h1>Hi, I'm {userInfo ? <span>{userName}</span> : null}</h1>
+          <h1>
+            Hi, I'm{" "}
+            {userInfo ? (
+              <span>{userName}</span>
+            ) : (
+              <Spinner size="sm" color="primary" />
+            )}
+          </h1>
           <h3>Bathrooms</h3>
           <hr />
           {/* <div className={classes.imgTextWrap}>
@@ -146,28 +169,23 @@ const PublicUserInfoPage = (props) => {
             <p>Bathroom name</p>
           </div> */}
           <div className={classes.imgTextWrap}>
-            {bathrooms != null &&
+            {bathrooms != null ? (
               bathrooms.map((e) => (
                 <>
-                  {bathrooms.length != 0 &&
-                    bathrooms.map((result, i) => (
-                      <>
-                        <Link
-                          key={result.id}
-                          to={"/PrivateBathroom/" + result.id}
-                        >
-                          <p>{result.address_id.city}</p>
-                        </Link>
-                      </>
-                    ))}
+                  <Link key={e.id} to={"/PrivateBathroom/" + e.id}>
+                    <p>{e.address_id.city}</p>
+                  </Link>
                 </>
-              ))}
+              ))
+            ) : (
+              <Spinner style={{ width: "3rem", height: "3rem" }} />
+            )}
           </div>
           <hr />
           <div className={classes.reviewSection}>
             <h4>{amountOfRatings} Reviews</h4>
             <div className={classes.review}>
-              {bathrooms != null && (
+              {bathrooms != null ? (
                 <>
                   {bathrooms.length != 0 &&
                     bathrooms.map((result, i) => (
@@ -191,6 +209,8 @@ const PublicUserInfoPage = (props) => {
                       </>
                     ))}
                 </>
+              ) : (
+                <Spinner style={{ width: "3rem", height: "3rem" }} />
               )}
             </div>
             {/* <div className={classes.review}>
