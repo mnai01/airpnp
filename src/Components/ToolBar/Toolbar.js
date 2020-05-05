@@ -86,9 +86,9 @@ const Toolbar = (props) => {
                 <li>
                   <Link to="/SearchPage">Search</Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="/Test">Test</Link>
-                </li>
+                </li> */}
                 <li>
                   <Link to="/UserInfo">UserInfo</Link>
                 </li>
