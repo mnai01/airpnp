@@ -37,7 +37,7 @@ const Schedule = (props) => {
     "Friday",
     "Saturday",
   ];
-  const [excludeTime1, setexcludeTime1] = useState(null);
+  const [postMessage, setPostMessage] = useState("");
   const [days, setDays] = useState(null);
   const [loading, setLoading] = useState(true);
   const [noDatePicked, setNoDatePicked] = useState(false);
@@ -233,9 +233,20 @@ const Schedule = (props) => {
         },
       })
       .then((res) => {
-        console.log(res);
+        if (
+          res.data === "Time is unavailable" ||
+          res.data === "Time slot is taken" ||
+          res.data === "Bathroom does not exist" ||
+          res.data === "User does not exist"
+        ) {
+          setPostMessage(res.data);
+        } else {
+          setPostMessage("Your registration has been confirmed");
+        }
+        console.log(res.data);
       })
       .catch((err) => {
+        setPostMessage(err.message);
         console.log(err.message);
       });
   };
@@ -264,6 +275,12 @@ const Schedule = (props) => {
         )}
 
         <FormGroup>
+          <FormGroup>
+            <Label type="text" className="Title">
+              {postMessage}
+            </Label>
+          </FormGroup>
+
           <DatePicker
             selected={date}
             onChange={(date) => handleChange(date)}
