@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ErrorPage from "../ErroPage/ErroPage";
+import Cookies from "js-cookie";
 import axios from "axios";
 import classes from "./PrivateResultPage.module.css";
 import paper from "../../assets/toilet-paper.png";
@@ -17,7 +18,13 @@ let amountOfRatings;
 let numOftoilets;
 let numOfIcons;
 
+const POST_RATING_URL =
+  "https://www.airpnpbcs430w.info/Bathrooms/Ratings/Create/";
+
 const PrivateResultPage = (props) => {
+  const [userScore, setScore] = useState(1);
+  const [userTitle, setUserTitle] = useState("");
+  const [userReview, setUserReview] = useState("");
   const [dataObtained, setDataObtained] = useState(false);
   const [loading, setLoading] = useState(true);
   const [Result, setResult] = useState();
@@ -52,6 +59,44 @@ const PrivateResultPage = (props) => {
       setDataObtained(true);
     }
   }, []);
+
+  const handleAddRating = () => {
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (Cookies.get("Token")) {
+      config.headers["Authorization"] = `Token ${Cookies.get("Token")}`;
+    }
+
+    let data = {
+      bathroom_id: id,
+      description: userReview,
+      title: userTitle,
+      score: userScore,
+    };
+    axios
+      .post(POST_RATING_URL, data, config)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleTitleChange = (e) => {
+    setUserTitle(e);
+  };
+
+  const handleSetScore = (e) => {
+    setScore(e);
+  };
+
+  const handleSetUserReview = (e) => {
+    setUserReview(e);
+  };
 
   // if result in parameters is empty
   if (props.privResults.length === 0) {
@@ -113,7 +158,7 @@ const PrivateResultPage = (props) => {
               <div className={classes.resultBanner}></div>
               <div className={classes.resultDetails}>
                 <Link to={"/PublicUserInfo/" + result.address_id.user}>
-                  <h4>{result.address_id.user}</h4>
+                  <h4>Owner: {result.address_id.user}</h4>
                 </Link>
                 <p>
                   Average Score: {totalScore.toFixed(2)} ({amountOfRatings})
@@ -171,13 +216,46 @@ const PrivateResultPage = (props) => {
                 <hr />
                 <Schedule id={id} />
                 <hr />
-                <h3>Reviews</h3>
                 <Form>
                   <FormGroup>
-                    <Input type="textarea" name="text" id="exampleText" />
+                    <h3>Title</h3>
+                    <Input
+                      type="text"
+                      placeholder="Title"
+                      onChange={(e) => handleTitleChange(e.target.value)}
+                      required
+                    />
                   </FormGroup>
+
                   <FormGroup>
-                    <Button>Submit Review</Button>
+                    <Label for="AmountofBathrooms">Score</Label>
+                    <Input
+                      type="select"
+                      name="selectMultiple"
+                      id="multipleBathrooms"
+                      onChange={(e) => handleSetScore(e.target.value)}
+                      mulitple="true"
+                    >
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </Input>
+                  </FormGroup>
+
+                  <h3>Reviews</h3>
+                  <FormGroup>
+                    <Input
+                      type="textarea"
+                      name="text"
+                      id="exampleText"
+                      onChange={(e) => handleSetUserReview(e.target.value)}
+                    />
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Button onClick={handleAddRating}>Submit Review</Button>
                   </FormGroup>
                 </Form>
 
