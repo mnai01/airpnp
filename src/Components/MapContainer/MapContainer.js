@@ -35,9 +35,9 @@ const MapContainer = (props) => {
   var PrivateBathroomsIcon = L.icon({
     iconUrl: PrivateBathrooms,
     // shadowUrl: ToiletShadow,
-    iconSize: [35, 40], // size of the icon
+    iconSize: [25, 30], // size of the icon
     shadowSize: [35, 55], // size of the shadow
-    iconAnchor: [22, 40], // point of the icon which will correspond to marker's location
+    iconAnchor: [10, 30], // point of the icon which will correspond to marker's location
     shadowAnchor: [23, 40], // the same for the shadow
     popupAnchor: [0, -30],
   });
@@ -70,7 +70,7 @@ const MapContainer = (props) => {
       ))}
       {props.state.privateResults.map((result) => (
         <Marker
-          // icon={PrivateBathroomsIcon}
+          icon={PrivateBathroomsIcon}
           key={result.id}
           position={[result.address_id.latitude, result.address_id.longitude]}
         />
