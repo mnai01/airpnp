@@ -7,6 +7,17 @@ a {
   margin-right: 3rem;
 }
 
+.BannerContainer {
+  height: 10rem;
+  overflow: hidden;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.Banner {
+}
+
 .WelcomeMsg {
   margin-top: 2rem;
   margin-left: 2rem;
@@ -20,6 +31,7 @@ a {
   justify-content: space-between;
   overflow-x: auto;
   margin: 2rem;
+  margin-bottom: 5rem;
 }
 
 .HomePageItem {
