@@ -7,7 +7,7 @@ import Spinner from "../Spinner/Spinner";
 import PlacesAutocomplete from "../PlacesAutocomplete/PlacesAutocomplete";
 import Modal from "../Modal/Modal";
 import * as GeoLocation from "../GeoLocation/GeoLocation";
-import { Button } from "reactstrap";
+import { Button, Form, FormGroup } from "reactstrap";
 
 import Aux from "../../hoc/auxHOC/auxHOC";
 import classes from "./SearchPage.module.css";
@@ -121,7 +121,10 @@ const SearchPage = (props) => {
         <p>Upvotes: {currentSelected.upvote}</p>
         <p>Downvotes: {currentSelected.downvote}</p>
       </Modal>
-      <Button onClick={handleGetLocation}>Press to find your location</Button>
+
+      <div className={classes.currentLocation}>
+        <Button onClick={handleGetLocation}>Press to find your location</Button>
+      </div>
 
       <PlacesAutocomplete
         changePrivBath={handlePrivBath}
