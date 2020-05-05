@@ -32,12 +32,21 @@ const PrivateResultPage = (props) => {
   id = id.pathname.replace("/PrivateBathroom/", "");
 
   useEffect(() => {
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (Cookies.get("Token")) {
+      config.headers["Authorization"] = `Token ${Cookies.get("Token")}`;
+    }
     // check if a result passed in from the parameters is empty, if so run the axios call to get that specific result
     if (props.privResults.length === 0) {
       axios
         .get(
           "https://cors-anywhere.herokuapp.com/https://www.airpnpbcs430w.info/Bathrooms/API/" +
-            id
+            id,
+          config
         )
         .then((res) => {
           setResult(res.data[0]);
