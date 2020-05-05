@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
-
+import Cookies from "js-cookie";
 import NewYork from "../../assets/NewYork.jpg";
 import NewOrleanIMG from "../../assets/NewOrleans.jpg";
 import Los_AngelesIMG from "../../assets/Los_Angeles.jpg";
@@ -35,6 +35,9 @@ const HomePage = () => {
   return (
     <Aux>
       <div className={classes.PageContainer}>
+        <div className={classes.WelcomeMsg}>
+          <h1>Hello, Welcome back {Cookies.get("Username")}</h1>
+        </div>
         <Switch>
           <Route exact path="/" exact>
             <div className={classes.SectionTitle}>
