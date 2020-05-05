@@ -9,6 +9,8 @@ import WashingtonIMG from "../../assets/Washington.jpg";
 import Las_VegasIMG from "../../assets/Las_Vegas.png";
 import San_FranciscoIMG from "../../assets/San-Francisco.jpg";
 import MiamiIMG from "../../assets/Miami.jpg";
+import StayHomeBanner from "../../assets/Stay.jpg";
+import { Media } from "reactstrap";
 
 import Aux from "../../hoc/auxHOC/auxHOC";
 import classes from "./HomePage.module.css";
@@ -34,6 +36,17 @@ const HomePage = () => {
 
   return (
     <Aux>
+      <div className={classes.BannerContainer}>
+        <a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html">
+          <Media
+            className={classes.Banner}
+            object
+            src={StayHomeBanner}
+            alt="Generic placeholder image"
+          />
+        </a>
+        ,
+      </div>
       <div className={classes.PageContainer}>
         <div className={classes.WelcomeMsg}>
           <h1>Hello, Welcome back {Cookies.get("Username")}</h1>
