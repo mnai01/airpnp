@@ -18,16 +18,8 @@ const Footer = () => {
             &amp; Frontend
           </li>
           <li>
-            <a href="https://github.com/Brandon Berke">Brandon</a>,Backend API
-          </li>
-          <li>
-            <a href="https://github.com/BernsteinBearrr">Andre</a>, Frontend
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/">Benny</a>, Documentation
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/">Rich</a>, Documentation
+            <a href="https://github.com/warbrain11">Brandon Berke</a>,Backend
+            API
           </li>
         </ul>
       </div>
