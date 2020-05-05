@@ -67,6 +67,7 @@ const Autocomplete = (props) => {
       .catch((err) => {
         console.log(err);
       });
+
     let config = {
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +83,8 @@ const Autocomplete = (props) => {
         privateBathroomURL +
           props.state.currentLat +
           "/" +
-          props.state.currentLng
+          props.state.currentLng,
+        config
       )
       .then((data) => {
         console.log(data);
