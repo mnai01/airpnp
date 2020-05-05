@@ -25,6 +25,15 @@ let bathroom = 0;
 let temp;
 let totalScoreForOneBathroom = [];
 const UserInfoPage = (props) => {
+  // needed because if your in mobile view
+  // and open the menu window the reviews/scoores/double
+  avgScore = 0;
+  totalScore = 0;
+  amountOfRatings = 0;
+  bathroom = 0;
+  temp = null;
+  totalScoreForOneBathroom = [];
+
   const [userInfo, setUserInfo] = useState(null);
   const [bathrooms, setBathrooms] = useState(null);
   const [modal, setModal] = useState(false);
@@ -55,6 +64,11 @@ const UserInfoPage = (props) => {
   }
 
   useEffect(() => {
+    // if user goes back to the back before a refresh
+    // these numbers need to reset
+    // Needed to reset the scores back to 0 every time
+    // the page is re-rendered. if not it will just keep adding
+    // creating a much higher total each re-render
     avgScore = 0;
     totalScore = 0;
     amountOfRatings = 0;
@@ -188,19 +202,11 @@ const UserInfoPage = (props) => {
           </div> */}
           <div className={classes.imgTextWrap}>
             {bathrooms != null ? (
-              bathrooms.map((e, i) => (
+              bathrooms.map((e) => (
                 <>
-                  {bathrooms.length != 0 &&
-                    bathrooms.map((result, j) => (
-                      <>
-                        <Link
-                          key={result.id}
-                          to={"/PrivateBathroom/" + result.id}
-                        >
-                          <p>{result.address_id.city}</p>
-                        </Link>
-                      </>
-                    ))}
+                  <Link key={e.id} to={"/PrivateBathroom/" + e.id}>
+                    <p>{e.address_id.city}</p>
+                  </Link>
                 </>
               ))
             ) : (
