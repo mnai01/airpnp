@@ -105,6 +105,7 @@ const HostBathroomPage = (props) => {
       .then((res) => {
         let results;
         results = res.data;
+        console.log(res);
         setAddressList(results);
         console.log(res);
       })
@@ -420,8 +421,7 @@ const HostBathroomPage = (props) => {
               >
                 {addressList !== null ? (
                   <>
-                    {console.log(addressList)}
-                    {addressList !== "No Addresses for User" ? (
+                    {String(addressList) !== "No addresses for this user" ? (
                       <>
                         {<option>Please Pick a bathroom...</option>}}
                         {addressList.map((res, i) => (
