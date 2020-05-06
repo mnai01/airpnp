@@ -40,7 +40,7 @@ const HostBathroomPage = (props) => {
     zipcode: 0,
     country: "default",
   });
-  const [addressList, setAddressList] = useState();
+  const [addressList, setAddressList] = useState(null);
   const [modal, setModal] = useState(false);
   const [coordinates, setCoordinates] = useState({
     lat: null,
@@ -125,7 +125,7 @@ const HostBathroomPage = (props) => {
     }
 
     const fd = new FormData();
-    fd.append("image", file, file.name);
+    // fd.append("image", file, file.name);
     data = {
       address_id: addressSelected.id,
       has_shower: bathroomItems.shower,
@@ -140,15 +140,15 @@ const HostBathroomPage = (props) => {
     console.log(
       URL,
       fd,
-      {
-        onUploadProgress: (progressEvent) => {
-          console.log(
-            "Upload Progress " +
-              (progressEvent.loaded / progressEvent.total) * 100 +
-              "%"
-          );
-        },
-      },
+      // {
+      //   onUploadProgress: (progressEvent) => {
+      //     console.log(
+      //       "Upload Progress " +
+      //         (progressEvent.loaded / progressEvent.total) * 100 +
+      //         "%"
+      //     );
+      //   },
+      // },
       config
     );
     axios
@@ -418,16 +418,22 @@ const HostBathroomPage = (props) => {
                 onChange={(e) => handleAddressPicked(e.target.value)}
                 mulitple="true"
               >
-                {addressList ? (
+                {addressList !== null ? (
                   <>
                     {console.log(addressList)}
-                    <option>Please Pick a bathroom...</option>
-                    {addressList.map((res, i) => (
-                      <option key={i}>{res.address_line1}</option>
-                    ))}
+                    {addressList !== "No Addresses for User" ? (
+                      <>
+                        {<option>Please Pick a bathroom...</option>}}
+                        {addressList.map((res, i) => (
+                          <option key={i}>{res.address_line1}</option>
+                        ))}
+                      </>
+                    ) : (
+                      <option>None please create an address</option>
+                    )}
                   </>
                 ) : (
-                  <option>NONE</option>
+                  <option>Connection Error</option>
                 )}
               </Input>
             </FormGroup>
