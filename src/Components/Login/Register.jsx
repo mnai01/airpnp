@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { AvForm, AvField } from "availity-reactstrap-validation";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
 import loginImg from "./login.svg";
 
 const URL =
-  "https://cors-anywhere.herokuapp.com/www.airpnpbcs430w.info/User/register";
+  "https://cors-anywhere.herokuapp.com/www.airpnpbcs430w.info/User/register/";
 
 const Register = (props) => {
   const [username, setUsername] = useState(null);
@@ -47,7 +49,7 @@ const Register = (props) => {
         home_address: "Yo Mama ave 12231",
         home_state: "NY",
         home_city: "Lindenhurst",
-        home_zip: "11342",
+        home_zip: 11342,
         password: String(password),
         password2: String(password),
       })
@@ -61,64 +63,61 @@ const Register = (props) => {
 
   return (
     <div className="base-container" ref={props.containerRef}>
-      <div className="header">Register</div>
-      <div className="content">
-        <div className="image">
-          <img src={loginImg} />
-        </div>
-        <div className="form">
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
+      <AvForm>
+        <div className="header">Register</div>
+        <div className="content">
+          <div className="image">
+            <img src={loginImg} />
+          </div>
+          <div className="form">
+            <AvField
+              label="Username"
               type="text"
               name="username"
               placeholder="username"
               onChange={changeHandlerUsername}
+              required
             />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
+            <AvField
               type="email"
               name="email"
               placeholder="email"
+              label="Email"
               onChange={changeHandlerEmail}
+              required
             />
-          </div>
-          <div className="form-group">
-            <label htmlFor="first name">First name</label>
-            <input
+            <AvField
               type="text"
+              label="First Name"
               name="first-name"
               placeholder="first name"
               onChange={changeHandlerFirstName}
+              required
             />
-          </div>
-          <div className="form-group">
-            <label htmlFor="last name">Last name</label>
-            <input
+            <AvField
+              label="Last name"
               type="text"
               name="last-name"
               placeholder="last name"
               onChange={changeHandlerLastName}
+              required
             />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
+            <AvField
+              label="Password"
               type="password"
               name="password"
               placeholder="password"
               onChange={changeHandlerPassword}
+              required
             />
           </div>
         </div>
-      </div>
-      <div className="footer">
-        <button type="button" className="btn" onClick={registerHandler}>
-          Register
-        </button>
-      </div>
+        <div className="footer">
+          <Button type="button" className="btn" onClick={registerHandler}>
+            Register
+          </Button>
+        </div>
+      </AvForm>
     </div>
   );
 };

@@ -45,7 +45,6 @@ const HomePage = () => {
             alt="Generic placeholder image"
           />
         </a>
-        ,
       </div>
       <div className={classes.PageContainer}>
         <div className={classes.WelcomeMsg}>

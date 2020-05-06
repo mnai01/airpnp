@@ -13,9 +13,13 @@ a {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+  background-color: #15a9ff;
 }
 
 .Banner {
+  margin-bottom: 1rem;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .WelcomeMsg {
@@ -74,5 +78,20 @@ a {
   .PageContainer {
     margin-left: 0vh;
     margin-right: 0vh;
+  }
+  .Banner img {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: auto;
+    max-height: auto;
+  }
+  .BannerContainer {
+    height: 5rem;
+    background-color: #15a9ff;
   }
 }
