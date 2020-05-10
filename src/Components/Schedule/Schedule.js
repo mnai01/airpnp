@@ -96,11 +96,11 @@ const Schedule = (props) => {
         // once mapped, if the day selected equals the day in days state
         //  Monday(user) ===  Monday(hosts) then take the hosts hours for that monday
         if (res.week_day === selectedDay) {
-          if (res.timesAvailable.length !== 0) {
-            OpHour = res.timesAvailable[0].open_time.substring(0, 2);
-            OpMinute = res.timesAvailable[0].open_time.substring(3, 5);
-            ClHour = res.timesAvailable[0].close_time.substring(0, 2);
-            ClMinute = res.timesAvailable[0].close_time.substring(3, 5);
+          if (res.timesAvailable !== null) {
+            OpHour = res.timesAvailable.open_time.substring(0, 2);
+            OpMinute = res.timesAvailable.open_time.substring(3, 5);
+            ClHour = res.timesAvailable.close_time.substring(0, 2);
+            ClMinute = res.timesAvailable.close_time.substring(3, 5);
             console.log("TImes ava", OpHour, OpMinute, ClHour, ClMinute);
             setselectedData({
               open_time_hr: OpHour,
@@ -286,7 +286,7 @@ const Schedule = (props) => {
             onChange={(date) => handleChange(date)}
             showTimeSelect
             timeFormat="HH:mm"
-            timeIntervals={15}
+            timeIntervals={30}
             excludeTimes={excludeTime}
             minTime={d.setHours(
               selectedData.open_time_hr,
@@ -306,12 +306,16 @@ const Schedule = (props) => {
               {days.map((res, i) => (
                 <div key={i}>
                   <div>
-                    {res.timesAvailable.map((innerRes, ind) => (
-                      <div key={ind}>
-                        {res.week_day} {innerRes.open_time}{" "}
-                        {innerRes.close_time}
+                    {res.timesAvailable === null ? (
+                      <div>
+                        <p>No times for {res.week_day}</p>
                       </div>
-                    ))}
+                    ) : (
+                      <>
+                        {res.week_day} {res.timesAvailable.open_time}{" "}
+                        {res.timesAvailable.close_time}
+                      </>
+                    )}
                   </div>
                 </div>
               ))}
