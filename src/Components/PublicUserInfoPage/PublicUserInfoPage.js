@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Aux from "../../hoc/auxHOC/auxHOC";
+import Cookies from "js-cookie";
 import classes from "./PublicUserInfoPage.module.css";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -78,8 +79,18 @@ const PublicUserInfoPage = (props) => {
     temp = null;
     totalScoreForOneBathroom = [];
 
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    if (Cookies.get("Token")) {
+      config.headers["Authorization"] = `Token ${Cookies.get("Token")}`;
+    }
+
     axios
-      .get(url + userName)
+      .get(url + userName, config)
       .then((data) => {
         console.log(data);
         let arr = [];
@@ -108,14 +119,12 @@ const PublicUserInfoPage = (props) => {
           <hr />
           <div class={classes.iconWrap}>
             <i class="fas fa-home"></i>
-            <p>
-              Lives in{" "}
-              {userInfo ? (
-                <span>{userInfo.home_address}</span>
-              ) : (
-                <Spinner size="sm" color="primary" />
-              )}
-            </p>
+            <p>Lives in </p>
+            {userInfo ? (
+              <span>{userInfo.home_address}</span>
+            ) : (
+              <Spinner size="sm" color="primary" />
+            )}
           </div>
           <div class={classes.iconWrap}>
             <i class="far fa-comment-dots"></i>
