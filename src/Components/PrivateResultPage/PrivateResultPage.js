@@ -164,7 +164,13 @@ const PrivateResultPage = (props) => {
           {/* if temp is true which means axios pulled a valid entry then display it, else, show the error page */}
           {dataObtained ? (
             <div className="resultPage">
-              <div className={classes.resultBanner}></div>
+              <div className={classes.resultBanner}>
+                <img
+                  className={classes.resultImage}
+                  src={"https://www.airpnpbcs430w.info" + result.image1}
+                />
+              </div>
+
               <div className={classes.resultDetails}>
                 <Link to={"/PublicUserInfo/" + result.address_id.user}>
                   <h4>Owner: {result.address_id.user}</h4>
@@ -217,9 +223,9 @@ const PrivateResultPage = (props) => {
                 <p>
                   Fem Products:{" "}
                   {result.has_fem_products ? (
-                    <img className={classes.accessories} src={paper}></img>
-                  ) : (
                     <i class="fas fa-heart"></i>
+                  ) : (
+                    <i class="fas fa-ban"></i>
                   )}
                 </p>
                 <hr />
