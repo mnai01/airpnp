@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   Button,
   Form,
@@ -21,14 +21,22 @@ import {
   geocodeByPlaceId,
   getLatLng,
 } from "react-places-autocomplete";
+import ReactCrop from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 import classes from "./HostBathroomPage.module.css";
 
 const URL = "https://www.airpnpbcs430w.info/Bathrooms/Create/";
 const GET_ADDRESS = "https://www.airpnpbcs430w.info/User/Addresses/FromToken/";
 const POST_ADDRESS = "https://www.airpnpbcs430w.info/User/Addresses/Create/";
+const POST_TIME = "https://www.airpnpbcs430w.info/Bathrooms/CreateTimeSlot/";
 
 const HostBathroomPage = (props) => {
-  const [file, setFile] = useState();
+  const imgRef = useRef(null);
+  const [image, setImage] = useState();
+  const [croppedImage, setCropped] = useState(null);
+  const [imageURL, setImageURL] = useState();
+  const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 16 / 9 });
+  const [finishedCrop, setFinishedCrop] = useState(false);
   const [addressAutoComplete, setAddressAutoComplete] = useState("");
   const [addressSelected, setAddressSelected] = useState({ id: null });
   const [addressComponents, setAddressComponents] = useState({
@@ -53,38 +61,45 @@ const HostBathroomPage = (props) => {
     bath: false,
     femProducts: false,
   });
-  const [amoutOfToilets, setAmoutOfToilets] = useState();
+  const [amoutOfToilets, setAmoutOfToilets] = useState(1);
   const [mondayTimes, setMondayTimes] = useState({
+    day: "Monday",
     open_time: "",
     close_time: "",
   });
 
   const [tuesdayTimes, setTuesdayTimes] = useState({
+    day: "Tuesday",
     open_time: "",
     close_time: "",
   });
 
   const [wednesdayTimes, setWednesdayTimes] = useState({
+    day: "Wednesday",
     open_time: "",
     close_time: "",
   });
 
   const [thursdayTimes, setThursdayTimes] = useState({
+    day: "Thursday",
     open_time: "",
     close_time: "",
   });
 
   const [fridayTimes, setFridayTimes] = useState({
+    day: "Friday",
     open_time: "",
     close_time: "",
   });
 
   const [saturdayTimes, setSaturdayTimes] = useState({
+    day: "Saturday",
     open_time: "",
     close_time: "",
   });
 
   const [sundayTimes, setSundayTimes] = useState({
+    day: "Sunday",
     open_time: "",
     close_time: "",
   });
@@ -111,6 +126,7 @@ const HostBathroomPage = (props) => {
       })
       .catch((err) => {
         console.log(err);
+        console.log("catch");
       });
   }, []);
 
@@ -118,7 +134,8 @@ const HostBathroomPage = (props) => {
     let data;
     let config = {
       headers: {
-        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
       },
     };
     if (Cookies.get("Token")) {
@@ -126,48 +143,169 @@ const HostBathroomPage = (props) => {
     }
 
     const fd = new FormData();
-    // fd.append("image", file, file.name);
-    data = {
-      address_id: addressSelected.id,
-      has_shower: bathroomItems.shower,
-      has_bath: bathroomItems.bath,
-      has_sink: bathroomItems.sink,
-      num_of_toilets: amoutOfToilets,
-      has_fem_products: bathroomItems.femProducts,
-      has_toilet_paper: bathroomItems.toiletPaper,
-    };
-    fd.append("data", data);
 
-    console.log(
-      URL,
-      fd,
-      // {
-      //   onUploadProgress: (progressEvent) => {
-      //     console.log(
-      //       "Upload Progress " +
-      //         (progressEvent.loaded / progressEvent.total) * 100 +
-      //         "%"
-      //     );
-      //   },
-      // },
-      config
-    );
+    if (croppedImage !== null) {
+      fd.append("image1", croppedImage, croppedImage.name);
+    } else {
+      console.log("croppedImage is null");
+    }
+
+    fd.set("address_id", addressSelected.id);
+    fd.set("has_shower", bathroomItems.shower);
+    fd.set("has_bath", bathroomItems.bath);
+    fd.set("has_sink", bathroomItems.sink);
+    fd.set("num_of_toilets", amoutOfToilets);
+    fd.set("has_fem_products", bathroomItems.femProducts);
+    fd.set("has_toilet_paper", bathroomItems.toiletPaper);
+
+    console.log(fd);
+    for (var pair of fd.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
+    let configData = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (Cookies.get("Token")) {
+      configData.headers["Authorization"] = `Token ${Cookies.get("Token")}`;
+    }
+
     axios
       .post(
         URL,
         fd,
-        {
-          onUploadProgress: (progressEvent) => {
-            console.log(
-              "Upload Progress " +
-                (progressEvent.loaded / progressEvent.total) * 100 +
-                "%"
-            );
-          },
-        },
+        // {
+        //   onUploadProgress: (progressEvent) => {
+        //     console.log(
+        //       "Upload Progress " +
+        //         (progressEvent.loaded / progressEvent.total) * 100 +
+        //         "%"
+        //     );
+        //   },
+        // },
         config
       )
       .then((res) => {
+        let newBathroomID = res.data.id;
+
+        if (mondayTimes.open_time !== "" && mondayTimes.close_time !== "") {
+          let mondayData = {
+            bathroom_id: newBathroomID,
+            week_day: mondayTimes.day,
+            open_time: mondayTimes.open_time + ":00",
+            close_time: mondayTimes.close_time + ":00",
+          };
+          axios
+            .post(POST_TIME, mondayData, configData)
+            .then((e) => {
+              console.log(e);
+            })
+            .catch((e) => {
+              console.log(POST_TIME, mondayData, configData);
+              console.log(e);
+            });
+        }
+        if (tuesdayTimes.open_time !== "" && tuesdayTimes.close_time !== "") {
+          let tuedayData = {
+            bathroom_id: newBathroomID,
+            week_day: tuesdayTimes.day,
+            open_time: tuesdayTimes.open_time + ":00",
+            close_time: tuesdayTimes.close_time + ":00",
+          };
+          axios
+            .post(POST_TIME, tuedayData, configData)
+            .then((e) => {
+              console.log(e);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+        if (
+          wednesdayTimes.open_time !== "" &&
+          wednesdayTimes.close_time !== ""
+        ) {
+          let wednesdayData = {
+            bathroom_id: newBathroomID,
+            week_day: wednesdayTimes.day,
+            open_time: wednesdayTimes.open_time + ":00",
+            close_time: wednesdayTimes.close_time + ":00",
+          };
+          axios
+            .post(POST_TIME, wednesdayData, configData)
+            .then((e) => {
+              console.log(e);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+        if (thursdayTimes.open_time !== "" && thursdayTimes.close_time !== "") {
+          let thursdayData = {
+            bathroom_id: newBathroomID,
+            week_day: thursdayTimes.day,
+            open_time: thursdayTimes.open_time + ":00",
+            close_time: thursdayTimes.close_time + ":00",
+          };
+          axios
+            .post(POST_TIME, thursdayData, configData)
+            .then((e) => {
+              console.log(e);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+        if (fridayTimes.open_time !== "" && fridayTimes.close_time !== "") {
+          let fridayData = {
+            bathroom_id: newBathroomID,
+            week_day: fridayTimes.day,
+            open_time: fridayTimes.open_time + ":00",
+            close_time: fridayTimes.close_time + ":00",
+          };
+          axios
+            .post(POST_TIME, fridayData, configData)
+            .then((e) => {
+              console.log(e);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+        if (saturdayTimes.open_time !== "" && saturdayTimes.close_time !== "") {
+          let saturdayData = {
+            bathroom_id: newBathroomID,
+            week_day: saturdayTimes.day,
+            open_time: saturdayTimes.open_time + ":00",
+            close_time: saturdayTimes.close_time + ":00",
+          };
+          axios
+            .post(POST_TIME, saturdayData, configData)
+            .then((e) => {
+              console.log(e);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+        if (sundayTimes.open_time !== "" && sundayTimes.close_time !== "") {
+          let sundayData = {
+            bathroom_id: newBathroomID,
+            week_day: sundayTimes.day,
+            open_time: sundayTimes.open_time + ":00",
+            close_time: sundayTimes.close_time + ":00",
+          };
+          axios
+            .post(POST_TIME, sundayData, configData)
+            .then((e) => {
+              console.log(e);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
         console.log(res);
       })
       .catch((err) => {
@@ -263,9 +401,94 @@ const HostBathroomPage = (props) => {
     });
   };
 
-  const handlerFileSelected = (event) => {
-    setFile(event.target.files[0]);
-    console.log(event.target.files[0]);
+  const handlerImageSelected = (event) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => setImage(reader.result));
+      reader.readAsDataURL(event.target.files[0]);
+      console.log(event.target.files[0]);
+    }
+  };
+
+  const onLoad = useCallback((img) => {
+    imgRef.current = img;
+  }, []);
+
+  const makeClientCrop = async (crop) => {
+    if (imgRef.current && crop.width && crop.height) {
+      createCropPreview(imgRef.current, crop, "newFile.jpeg");
+    }
+  };
+
+  const dataURLtoFile = (dataurl, filename) => {
+    let arr = dataurl.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    let croppedImage = new File([u8arr], filename, { type: mime });
+    setCropped(croppedImage);
+  };
+
+  const makeid = (length) => {
+    let result = "";
+    let characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  };
+
+  const createCropPreview = async (image, crop, fileName) => {
+    const canvas = document.createElement("canvas");
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
+
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          reject(new Error("Canvas is empty"));
+          return;
+        }
+        reader.readAsDataURL(blob);
+        blob.name = fileName;
+        window.URL.revokeObjectURL(imageURL);
+        setImageURL(window.URL.createObjectURL(blob));
+      }, "croppedURL.jpg");
+
+      reader.onloadend = () => {
+        dataURLtoFile(reader.result, "croppedURL" + makeid(7) + ".jpg");
+        console.log("croppedURL" + makeid(7) + ".jpg");
+      };
+    });
+  };
+
+  const handleFinishedCrop = () => {
+    setFinishedCrop(!finishedCrop);
+    console.log(croppedImage);
   };
 
   const handleBathroomItemsSink = (event) => {
@@ -401,6 +624,22 @@ const HostBathroomPage = (props) => {
     });
   };
 
+  const checkTimes = () => {
+    if (
+      (mondayTimes.open_time === "" || mondayTimes.close_time === "") &&
+      (tuesdayTimes.open_time === "" || tuesdayTimes.close_time === "") &&
+      (wednesdayTimes.open_time === "" || wednesdayTimes.close_time === "") &&
+      (thursdayTimes.open_time === "" || thursdayTimes.close_time === "") &&
+      (fridayTimes.open_time === "" || fridayTimes.close_time === "") &&
+      (saturdayTimes.open_time === "" || saturdayTimes.close_time === "") &&
+      (sundayTimes.open_time === "" || sundayTimes.close_time === "")
+    ) {
+      return <h4>Please set atleast one Availability time</h4>;
+    } else {
+      return <Button onClick={handleSubmit}>Submit</Button>;
+    }
+  };
+
   return (
     <Aux>
       <div className={classes.container}>
@@ -433,7 +672,10 @@ const HostBathroomPage = (props) => {
                     )}
                   </>
                 ) : (
-                  <option>Connection Error</option>
+                  <>
+                    <option>Connection Error</option>
+                    {console.log(addressList)}
+                  </>
                 )}
               </Input>
             </FormGroup>
@@ -608,7 +850,7 @@ const HostBathroomPage = (props) => {
                 type="select"
                 name="selectMultiple"
                 id="multipleBathrooms"
-                onChange={(e) => console.log(e.target.value)}
+                onChange={(e) => handleAmountOfBathrooms(e.target.value)}
                 mulitple="true"
               >
                 <option>1</option>
@@ -623,16 +865,37 @@ const HostBathroomPage = (props) => {
               <br />
               <input
                 type="file"
-                name="imageFile"
+                accept="image/*"
                 id="ExampleFile"
-                onChange={handlerFileSelected}
+                onChange={handlerImageSelected}
                 required
               />
-              <Button onClick={handleSubmit}>Submit</Button>
+              <hr />
             </FormGroup>
           </Form>
+          <div>
+            {finishedCrop ? (
+              <h1>Result</h1>
+            ) : (
+              <ReactCrop
+                src={image}
+                onImageLoaded={onLoad}
+                crop={crop}
+                onChange={(c) => setCrop(c)}
+                onComplete={makeClientCrop}
+              />
+            )}
+            {imageURL !== undefined ? (
+              <img src={imageURL} alt="preview" />
+            ) : (
+              console.log("none")
+            )}
+          </div>
+          <Button onClick={handleFinishedCrop}>Finished cropping</Button>
         </div>
+
         <div className={classes.formWrap2}>
+          <hr />
           <Form>
             <FormGroup>
               <h1>Bathroom(s) Availability</h1>
@@ -784,9 +1047,13 @@ const HostBathroomPage = (props) => {
                 ></Input>
               </FormGroup>
             </Row>
-
             <FormGroup>
-              <Button>Submit</Button>
+              {addressSelected.id === null || undefined ? (
+                <h3>To Submit please pick an address</h3>
+              ) : (
+                checkTimes()
+              )}
+              {/* <Button onClick={handleSubmit}>Submit</Button> */}
             </FormGroup>
           </Form>
         </div>
