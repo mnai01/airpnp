@@ -9,12 +9,13 @@
 }
 
 .resultBanner {
-  background: url("https://img-new.cgtrader.com/items/1824127/91c140991a/hq-modern-hotel-room-3d-model-low-poly-fbx-unitypackage-prefab-uasset.jpg");
+  /* background: url("https://img-new.cgtrader.com/items/1824127/91c140991a/hq-modern-hotel-room-3d-model-low-poly-fbx-unitypackage-prefab-uasset.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
-  height: 400px;
+  background-size: cover; */
+  text-align: center;
+  justify-content: center;
+  height: auto;
 }
 
 .resultDetails {
@@ -23,6 +24,20 @@
   margin: 0 auto;
 }
 
+.resultImage {
+}
+
 .title {
   text-transform: capitalize;
+}
+
+@media (max-width: 768px) {
+  .resultBanner {
+    width: 100vw;
+  }
+  .resultBanner img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
 }
