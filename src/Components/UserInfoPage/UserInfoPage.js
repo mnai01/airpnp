@@ -128,7 +128,17 @@ const UserInfoPage = (props) => {
       <div className={classes.userInfoDiv}>
         <div className={classes.userWrap}>
           <div className={classes.imgRounded}>
-            <img src="https://www.w3schools.com/w3images/avatar2.png" alt="" />
+            {userInfo === null ? (
+              <img
+                src={"https://www.w3schools.com/w3images/avatar2.png"}
+                alt=""
+              />
+            ) : (
+              <img
+                src={"https://www.airpnpbcs430w.info" + userInfo.user_image}
+                alt=""
+              />
+            )}
           </div>
           <div className={classes.userAction}>
             <a href="#">Update photo</a>
@@ -200,18 +210,26 @@ const UserInfoPage = (props) => {
             </div>
             <p>Bathroom name</p>
           </div> */}
-          <div className={classes.imgTextWrap}>
-            {bathrooms != null ? (
-              bathrooms.map((e) => (
-                <>
-                  <Link key={e.id} to={"/PrivateBathroom/" + e.id}>
-                    <p>{e.address_id.city}</p>
-                  </Link>
-                </>
-              ))
-            ) : (
-              <Spinner style={{ width: "3rem", height: "3rem" }} />
-            )}
+          <div className={classes.imgTextWrapContainer}>
+            <div className={classes.imgTextWrap}>
+              {bathrooms != null ? (
+                bathrooms.map((e) => (
+                  <>
+                    <Link key={e.id} to={"/PrivateBathroom/" + e.id}>
+                      <div className={classes.bathroomRounded}>
+                        <img
+                          src={"https://www.airpnpbcs430w.info" + e.image1}
+                          alt=""
+                        />
+                      </div>
+                      <p>{e.address_id.city}</p>
+                    </Link>
+                  </>
+                ))
+              ) : (
+                <Spinner style={{ width: "3rem", height: "3rem" }} />
+              )}
+            </div>
           </div>
           <hr />
           <div className={classes.reviewSection}>
