@@ -1,19 +1,28 @@
 .container {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
+
   margin-top: 1%;
   flex: 1;
 }
 
 .formWrap {
+  justify-content: space-around;
+  margin-left: 15%;
+  margin-right: 15%;
+
   padding: 20px;
-  background-color: rgb(245, 245, 245);
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.4), 0 0 6px 0 rgba(0, 0, 0, 0.3);
+  /* background-color: rgb(245, 245, 245);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.4), 0 0 6px 0 rgba(0, 0, 0, 0.3); */
 }
 .formWrap2 {
+  justify-content: space-around;
+  margin-left: 15%;
+  margin-right: 15%;
   padding: 20px;
-  background-color: rgb(245, 245, 245);
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.4), 0 0 6px 0 rgba(0, 0, 0, 0.3);
+  /* background-color: rgb(245, 245, 245);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.4), 0 0 6px 0 rgba(0, 0, 0, 0.3); */
   justify-content: right;
 }
 
