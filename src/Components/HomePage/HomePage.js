@@ -22,8 +22,18 @@ const HomePage = () => {
   const [loading, setloading] = useState(true);
 
   useEffect(() => {
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    if (Cookies.get("Token")) {
+      config.headers["Authorization"] = `Token ${Cookies.get("Token")}`;
+    }
+
     axios
-      .get(URLTOP5)
+      .get(URLTOP5, config)
       .then((res) => {
         console.log(res);
         settop5(res.data);
@@ -37,7 +47,7 @@ const HomePage = () => {
   return (
     <Aux>
       <div className={classes.BannerContainer}>
-        <a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html">
+        <a href="https://coronatimes.online/stats">
           <Media
             className={classes.Banner}
             object
