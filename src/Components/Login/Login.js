@@ -3,8 +3,7 @@ import loginImg from "./login.svg";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-let url =
-  "https://cors-anywhere.herokuapp.com/https://www.airpnpbcs430w.info/User/login/";
+let url = "https://www.airpnpbcs430w.info/User/login/";
 
 const Login = (props) => {
   const [login, setLogin] = useState(null);
@@ -12,13 +11,18 @@ const Login = (props) => {
   const [status, setStatus] = useState(null);
 
   const loginHandler = () => {
+    setStatus("Loading...");
     axios
       .post(url, { username: login, password: password })
       .then((res) => {
         console.log(res);
-        setStatus(res.data);
         props.Auth(res.data.token);
         console.log(Cookies.get("Token") == null);
+        if (res.data.token === undefined) {
+          setStatus(res.data);
+        } else {
+          setStatus("Success");
+        }
         Cookies.set("Username", res.data.username, { expires: 7 });
         Cookies.set("Token", res.data.token, { expires: 7 });
       })
