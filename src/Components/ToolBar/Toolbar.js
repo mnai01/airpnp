@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../SideDrawer/DrawToggleButton";
 import classes from "./Toolbar.module.css";
 import DrawToggleButton from "../SideDrawer/DrawToggleButton";
+import Cookies from "js-cookie";
 import {
   HashRouter as Router,
   Switch,
@@ -63,6 +64,12 @@ const Toolbar = (props) => {
     setSelected([bathroom]);
   };
 
+  const handleLogout = () => {
+    Cookies.remove("Token");
+    Cookies.remove("User");
+    window.location.reload(false);
+  };
+
   return (
     <Aux>
       <Router>
@@ -95,6 +102,7 @@ const Toolbar = (props) => {
                 <li>
                   <Link to="/HostBathroom">Host Bathroom</Link>
                 </li>
+                <li onClick={handleLogout}>Logout</li>
               </ul>
             </div>
           </nav>
