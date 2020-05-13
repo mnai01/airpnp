@@ -123,8 +123,10 @@ const HomePage = () => {
                   {top5.map((result) => (
                     <Link key={result.id} to={"/PrivateBathroom/" + result.id}>
                       <div className={classes.HomePageItem}>
-                        <img src={MiamiIMG}></img>
-                        <h3>{result.address_id.user}</h3>
+                        <img
+                          src={"https://www.airpnpbcs430w.info" + result.image1}
+                        ></img>
+                        <h5>Owner: {result.address_id.user}</h5>
                       </div>
                     </Link>
                   ))}

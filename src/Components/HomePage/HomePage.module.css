@@ -62,7 +62,8 @@ a {
   /* transform: scale(0.5); */
 }
 
-.HomePageItem h3 {
+.HomePageItem h3,
+.HomePageItem h5 {
   margin: auto;
   padding: 0px;
   text-decoration: none;
