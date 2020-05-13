@@ -28,6 +28,8 @@ const PrivateResultPage = (props) => {
   const [dataObtained, setDataObtained] = useState(false);
   const [loading, setLoading] = useState(true);
   const [Result, setResult] = useState();
+  const [ReviewStatus, setReviewStatus] = useState();
+
   let id = useLocation();
   id = id.pathname.replace("/PrivateBathroom/", "");
 
@@ -70,6 +72,13 @@ const PrivateResultPage = (props) => {
   }, []);
 
   const handleAddRating = () => {
+    setReviewStatus("Loading...");
+
+    if (userTitle === "" || userReview === "") {
+      setReviewStatus("Please fill in the information");
+      return;
+    }
+
     let config = {
       headers: {
         "Content-Type": "application/json",
@@ -88,9 +97,20 @@ const PrivateResultPage = (props) => {
     axios
       .post(POST_RATING_URL, data, config)
       .then((res) => {
+        if (
+          res.data ===
+          "Bathroom Owners cannot make reviews for their own bathrooms!"
+        ) {
+          setReviewStatus(
+            "Bathroom Owners cannot make reviews for their own bathrooms!"
+          );
+        } else {
+          setReviewStatus("Posted!");
+        }
         console.log(res.data);
       })
       .catch((err) => {
+        setReviewStatus("Connection Error, please try again later.");
         console.log(err);
       });
   };
@@ -268,6 +288,7 @@ const PrivateResultPage = (props) => {
                       onChange={(e) => handleSetUserReview(e.target.value)}
                     />
                   </FormGroup>
+                  <Label>{ReviewStatus}</Label>
 
                   <FormGroup>
                     <Button onClick={handleAddRating}>Submit Review</Button>

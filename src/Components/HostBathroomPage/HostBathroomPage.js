@@ -37,6 +37,7 @@ const HostBathroomPage = (props) => {
   const [imageURL, setImageURL] = useState();
   const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 16 / 9 });
   const [finishedCrop, setFinishedCrop] = useState(false);
+  const [postStatus, setPostStatus] = useState("");
   const [addressAutoComplete, setAddressAutoComplete] = useState("");
   const [addressSelected, setAddressSelected] = useState({ id: null });
   const [addressComponents, setAddressComponents] = useState({
@@ -128,7 +129,7 @@ const HostBathroomPage = (props) => {
         console.log(err);
         console.log("catch");
       });
-  }, []);
+  }, [modal]);
 
   const handleSubmit = () => {
     let data;
@@ -172,6 +173,7 @@ const HostBathroomPage = (props) => {
       configData.headers["Authorization"] = `Token ${Cookies.get("Token")}`;
     }
 
+    setPostStatus("Sending...");
     axios
       .post(
         URL,
@@ -188,6 +190,7 @@ const HostBathroomPage = (props) => {
         config
       )
       .then((res) => {
+        setPostStatus("Successful!");
         let newBathroomID = res.data.id;
 
         if (mondayTimes.open_time !== "" && mondayTimes.close_time !== "") {
@@ -220,6 +223,7 @@ const HostBathroomPage = (props) => {
               console.log(e);
             })
             .catch((e) => {
+              setPostStatus(e);
               console.log(e);
             });
         }
@@ -351,13 +355,51 @@ const HostBathroomPage = (props) => {
     const results = await geocodeByAddress(value);
     console.log(results[0]);
     const latlng = await getLatLng(results[0]);
+    let number;
+    let street;
+    let city;
+    let state;
+    let zipcode;
+    let country;
+
+    if (results[0].address_components[0] === undefined) {
+      number = "undefined";
+    } else {
+      number = results[0].address_components[0].long_name;
+    }
+    if (results[0].address_components[1] === undefined) {
+      street = "undefined";
+    } else {
+      street = results[0].address_components[1].long_name;
+    }
+    if (results[0].address_components[2] === undefined) {
+      city = "undefined";
+    } else {
+      city = results[0].address_components[2].long_name;
+    }
+    if (results[0].address_components[5] === undefined) {
+      state = "undefined";
+    } else {
+      state = results[0].address_components[5].long_name;
+    }
+    if (results[0].address_components[7] === undefined) {
+      zipcode = "undefined";
+    } else {
+      zipcode = results[0].address_components[7].long_name;
+    }
+    if (results[0].address_components[6] === undefined) {
+      country = "undefined";
+    } else {
+      country = results[0].address_components[6].long_name;
+    }
+
     setAddressComponents({
-      number: results[0].address_components[0].long_name,
-      street: results[0].address_components[1].long_name,
-      city: results[0].address_components[2].long_name,
-      state: results[0].address_components[5].long_name,
-      zipcode: results[0].address_components[7].long_name,
-      country: results[0].address_components[6].long_name,
+      number: number,
+      street: street,
+      city: city,
+      state: state,
+      zipcode: zipcode,
+      country: country,
     });
     // results[0].address_components;
     setAddressAutoComplete(value);
@@ -773,7 +815,7 @@ const HostBathroomPage = (props) => {
               </ModalBody>
               <ModalFooter>
                 <Button color="primary" onClick={handleAddAddAddress}>
-                  Do Something
+                  Save Address
                 </Button>
                 <Button color="secondary" onClick={handleToggleModale}>
                   Cancel
@@ -1047,6 +1089,7 @@ const HostBathroomPage = (props) => {
                 ></Input>
               </FormGroup>
             </Row>
+            <Label>{postStatus}</Label>
             <FormGroup>
               {addressSelected.id === null || undefined ? (
                 <h3>To Submit please pick an address</h3>
