@@ -32,20 +32,21 @@
   text-align: center;
 }
 
-.userAction a,
+.userAction p,
 .userAction span {
   color: teal;
   display: block;
   text-decoration: none;
   cursor: pointer;
+  margin-bottom: 0;
 }
 
-.userAction a:hover {
+.userAction p:hover {
   text-decoration: none;
   color: teal;
 }
 
-.userAction a:first-child {
+.userAction p:first-child {
   font-weight: bold;
 }
 
