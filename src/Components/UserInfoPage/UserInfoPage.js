@@ -141,7 +141,7 @@ const UserInfoPage = (props) => {
             )}
           </div>
           <div className={classes.userAction}>
-            <a href="#">Update photo</a>
+            <p onClick={toggle}>Update photo</p>
             <span onClick={toggle}>Edit profile</span>
           </div>
           <hr />
@@ -299,7 +299,7 @@ const UserInfoPage = (props) => {
         </div>
         <div>
           <Modal isOpen={modal} toggle={toggle}>
-            <ModalHeader toggle={toggle}></ModalHeader>
+            <ModalHeader toggle={toggle}>UNDER CONSTRUCTION</ModalHeader>
             <ModalBody>
               <div className={classes.formWrap}>
                 <div>
