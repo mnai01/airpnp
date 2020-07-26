@@ -15,8 +15,9 @@ This application works by using Reactjs to provide the user with a responsive fr
 
 - The frontend was built with React using the reactstrap css libary. consists of user profiles, public/private bathroom listings and a mapping system.
 
-![web](https://i.imgur.com/sdpwK31.png)
-![mobile](https://i.imgur.com/CGnU2m3.png)
+![profile](https://imgur.com/a/v0YTUcP)
+![register bathroom](https://imgur.com/a/7tEITu6)
+![search](https://imgur.com/a/2jOrpqa)
 
 **Backend**
 
